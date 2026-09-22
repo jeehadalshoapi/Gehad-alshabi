@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gehad Fatehi Alshabi — CAD/CAM &amp; Mechatronics Engineer · Full-Stack Developer</title>
+<meta name="description" content="CAD/CAM and Mechatronics engineer in Riyadh, and full-stack developer running two shipped React Native products on self-managed infrastructure. CV, projects and contact.">
+<meta name="theme-color" content="#05070c">
+
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="jeemdev">
+<meta property="og:title"       content="Gehad Alshabi — Engineer &amp; Developer">
+<meta property="og:description" content="CAD/CAM &amp; Mechatronics Engineer · Full-Stack Developer · DevOps &amp; AI Automation. Riyadh, Saudi Arabia.">
+<meta property="og:image"       content="https://gehad-alshabi.jeemdev.net/assets/img/og.png">
+<meta name="twitter:card"       content="summary_large_image">
+<link rel="canonical" href="https://gehad-alshabi.jeemdev.net/">
+<link rel="alternate" hreflang="en" href="https://gehad-alshabi.jeemdev.net/?lang=en">
+<link rel="alternate" hreflang="ar" href="https://gehad-alshabi.jeemdev.net/?lang=ar">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  // set the theme before first paint — avoids a flash of the wrong palette
+  try {
+    var _t = localStorage.getItem('jeemdev-theme');
+    if (_t) document.documentElement.setAttribute('data-theme', _t);
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+
+<!-- ░░ loader ░░ -->
+<div id="loader" class="loader">
+  <div class="loader__box">
+    <div class="loader__logo">&lt;jeemdev/&gt;</div>
+    <div class="loader__bar"><span></span></div>
+    <div class="loader__pct">0%</div>
+  </div>
+</div>
+
+<!-- ░░ background layers ░░ -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="grid-overlay" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+<div id="cursor" class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+<div class="scroll-progress"><span id="scroll-bar"></span></div>
+
+<!-- ░░ nav ░░ -->
+<header class="nav" id="nav">
+  <a href="#home" class="nav__brand"><span class="brk">&lt;</span>jeem<em>dev</em><span class="brk">/&gt;</span></a>
+  <nav class="nav__links" id="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#documents">Documents</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav__actions">
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme"></button>
+    <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">العربية</button>
+    <a class="btn btn--sm btn--ghost" id="nav-cv" href="#documents">CV</a>
+    <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ░░ hero ░░ -->
+  <section class="hero" id="home">
+    <div class="hero__inner">
+      <p class="hero__hi reveal">Hi, my name is</p>
+      <h1 class="hero__name reveal" id="hero-name">—</h1>
+      <h2 class="hero__role reveal"><span id="typed"></span><span class="caret">▍</span></h2>
+      <p class="hero__tagline reveal" id="hero-tagline"></p>
+      <p class="hero__meta reveal"><span id="hero-avail" class="pill pill--live"></span><span id="hero-loc" class="hero__loc"></span></p>
+      <div class="hero__cta reveal">
+        <a href="#projects" class="btn btn--primary" id="cta-work" data-magnet>See my work</a>
+        <a href="#documents" class="btn btn--outline" id="cta-cv" data-magnet>Download CV</a>
+      </div>
+      <ul class="hero__stats reveal" id="hero-stats"></ul>
+      <ul class="hero__social reveal" id="hero-social"></ul>
+    </div>
+    <a href="#about" class="hero__scroll"><span class="mouse"></span>scroll</a>
+  </section>
+
+  <!-- ░░ about ░░ -->
+  <section class="section" id="about">
+    <h2 class="section__title reveal"><i>01.</i><span class="section__title-text">About me</span></h2>
+    <div class="about">
+      <div class="about__text reveal" id="about-body"></div>
+      <aside class="about__side reveal">
+        <div class="card card--photo" id="about-photo"></div>
+        <ul class="facts" id="about-facts"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ░░ skills ░░ -->
+  <section class="section" id="skills">
+    <h2 class="section__title reveal"><i>02.</i><span class="section__title-text">Skills &amp; stack</span></h2>
+    <div class="skills" id="skills-grid"></div>
+  </section>
+
+  <!-- ░░ experience ░░ -->
+  <section class="section" id="experience">
+    <h2 class="section__title reveal"><i>03.</i><span class="section__title-text">Experience</span></h2>
+    <div class="timeline" id="timeline"></div>
+    <h3 class="sub-title reveal" id="edu-title">Education &amp; certifications</h3>
+    <div class="edu" id="edu"></div>
+  </section>
+
+  <!-- ░░ projects ░░ -->
+  <section class="section" id="projects">
+    <h2 class="section__title reveal"><i>04.</i><span class="section__title-text">Projects</span></h2>
+    <div class="filters reveal" id="filters"></div>
+    <div class="projects" id="projects-grid"></div>
+  </section>
+
+  <!-- ░░ documents ░░ -->
+  <section class="section" id="documents">
+    <h2 class="section__title reveal"><i>05.</i><span class="section__title-text">CV &amp; documents</span></h2>
+    <p class="section__lead reveal" id="docs-lead"></p>
+    <div class="docs" id="docs-grid"></div>
+  </section>
+
+  <!-- ░░ contact ░░ -->
+  <section class="section section--contact" id="contact">
+    <h2 class="section__title reveal"><i>06.</i><span class="section__title-text">Get in touch</span></h2>
+    <p class="section__lead reveal" id="contact-lead"></p>
+    <form class="contact-form reveal" id="contact-form" novalidate>
+      <div class="field"><input type="text"  name="name"  id="f-name"  required placeholder=" "><label for="f-name" id="f-name-l">Your name</label></div>
+      <div class="field"><input type="email" name="email" id="f-email" required placeholder=" "><label for="f-email" id="f-email-l">Your email</label></div>
+      <div class="field field--full"><input type="text" name="subject" id="f-subject" placeholder=" "><label for="f-subject" id="f-subject-l">Subject</label></div>
+      <div class="field field--full"><textarea name="message" id="f-message" rows="5" required placeholder=" "></textarea><label for="f-message" id="f-message-l">Message</label></div>
+      <button class="btn btn--primary btn--wide" id="send-btn" type="submit" data-magnet>Send message</button>
+      <p class="form-status" id="form-status" role="status"></p>
+    </form>
+    <div class="contact-alt reveal" id="contact-alt"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><span id="footer-by">Built from scratch by</span> <strong>jeemdev</strong> · <span id="year"></span></p>
+  <p class="footer__note" id="footer-note">Plain HTML, CSS &amp; JavaScript. No frameworks.</p>
+</footer>
+
+<!-- ░░ document viewer modal ░░ -->
+<div class="modal" id="doc-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Document viewer">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel">
+    <div class="modal__bar">
+      <span class="modal__title" id="doc-modal-title"></span>
+      <a class="btn btn--sm btn--ghost" id="doc-modal-dl" download>Download</a>
+      <a class="btn btn--sm btn--ghost" id="doc-modal-tab" target="_blank" rel="noopener">New tab</a>
+      <button class="modal__x" data-close aria-label="Close">✕</button>
+    </div>
+    <iframe id="doc-modal-frame" title="Document preview"></iframe>
+  </div>
+</div>
+
+<a href="#home" class="to-top" id="to-top" aria-label="Back to top">↑</a>
+
+<script src="data/content.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
