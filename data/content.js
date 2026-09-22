@@ -402,7 +402,7 @@ window.CONTENT = {
 
   /* ---------- 10. SEO ---------- */
   seo: {
-    siteUrl: "https://gehad-alshabi.jeemdev.net",
+    siteUrl: "https://gehadalshabi.jeemdev.net",
     title: {
       en: "Gehad Fatehi Alshabi — CAD/CAM & Mechatronics Engineer | Full-Stack Developer",
       ar: "جهاد فتحي الشعبي — مهندس ميكاترونكس CAD/CAM | مطوّر Full-Stack",

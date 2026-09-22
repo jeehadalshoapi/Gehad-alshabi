@@ -145,10 +145,11 @@ main,.nav,.footer{ position:relative; z-index:2; }
 .hero__inner{ width:100%; max-width:var(--max); }
 .hero__hi{ font-family:var(--mono); color:var(--neon); font-size:14px; letter-spacing:2px; margin:0 0 14px; }
 .hero__name{
-  margin:0; font-size:clamp(44px,11vw,104px); line-height:.95; font-weight:800;
-  letter-spacing:-.03em;
-  background:linear-gradient(120deg,#fff 10%,var(--neon) 55%,var(--neon-2) 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  margin:0; font-size:clamp(44px,11vw,104px); line-height:1.05; font-weight:800;
+  letter-spacing:-.03em; padding-bottom:.08em;
+  background-image:linear-gradient(120deg,#fff 10%,var(--neon) 55%,var(--neon-2) 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
 }
 .hero__role{
   margin:6px 0 18px; font-size:clamp(20px,5vw,42px); font-weight:600; color:var(--txt-dim);
@@ -470,7 +471,12 @@ main,.nav,.footer{ position:relative; z-index:2; }
 :root[dir="rtl"] .section__lead,
 :root[dir="rtl"] .hero__tagline{ font-family:var(--font-ar); letter-spacing:0; }
 
-:root[dir="rtl"] .hero__name{ letter-spacing:0; line-height:1.15; }
+:root[dir="rtl"] .hero__name{
+  font-size:clamp(32px,7.4vw,74px);
+  line-height:1.5;
+  letter-spacing:0;
+  padding-bottom:.22em;   /* room for the dots under ج ب ي */
+}
 :root[dir="rtl"] .hero__role{ letter-spacing:0; }
 
 /* section heading rule flips to run the other way */
@@ -559,8 +565,9 @@ main,.nav,.footer{ position:relative; z-index:2; }
 /* per-theme tweaks that variables alone cannot express */
 @media (prefers-color-scheme: light){
   :root[data-theme="auto"] .hero__name{
-    background:linear-gradient(120deg,#0a1424 0%,#0c3f55 45%,#123f8f 75%,#3a1f8c 100%);
-    -webkit-text-fill-color:transparent;
+    background-image:linear-gradient(120deg,#0a1424 0%,#0c3f55 45%,#123f8f 75%,#3a1f8c 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
   }
   :root[data-theme="auto"] .noise{ opacity:.02; }
   :root[data-theme="auto"] .nav.stuck{ background:rgba(242,246,251,.82); }
@@ -576,8 +583,9 @@ main,.nav,.footer{ position:relative; z-index:2; }
   :root[data-theme="auto"] .proj__thumb{ background:linear-gradient(140deg,#e7eef7,#dde7f3); }
 }
 :root[data-theme="light"] .hero__name{
-  background:linear-gradient(120deg,#0a1424 0%,#0c3f55 45%,#123f8f 75%,#3a1f8c 100%);
-    -webkit-text-fill-color:transparent;
+  background-image:linear-gradient(120deg,#0a1424 0%,#0c3f55 45%,#123f8f 75%,#3a1f8c 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
 }
 :root[data-theme="light"] .noise{ opacity:.02; }
 :root[data-theme="light"] .nav.stuck{ background:rgba(242,246,251,.82); }

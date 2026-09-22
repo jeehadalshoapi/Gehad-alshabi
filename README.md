@@ -92,11 +92,11 @@ python -m http.server 8000
 # then open http://localhost:8000
 ```
 
-## 6. Deploying to gehad-alshabi.jeemdev.net
+## 6. Deploying to gehadalshabi.jeemdev.net
 
 ### Netlify (easiest)
 1. <https://app.netlify.com/drop> → drag this whole folder in. Live instantly.
-2. Site settings → Domain management → Add custom domain → `gehad-alshabi.jeemdev.net`.
+2. Site settings → Domain management → Add custom domain → `gehadalshabi.jeemdev.net`.
 3. Point your domain's DNS at Netlify (they show the exact records).
    `netlify.toml` here already sets caching and security headers.
 
@@ -108,7 +108,7 @@ git remote add origin https://github.com/<you>/<repo>.git
 git push -u origin main
 ```
 Repo → Settings → Pages → Deploy from branch `main` / root.
-The included `CNAME` file already contains `gehad-alshabi.jeemdev.net`, so Pages picks the domain up
+The included `CNAME` file already contains `gehadalshabi.jeemdev.net`, so Pages picks the domain up
 automatically — then add these DNS records at your registrar:
 
 | Type  | Name | Value |
