@@ -635,3 +635,28 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
 .proj__points li::marker{ color:var(--neon); }
 .proj__points.clamp li:nth-child(n+2){ display:none; }
 :root[dir="rtl"] .proj__points{ padding-inline-start:0; padding-inline-end:17px; }
+
+/* ==========================================================
+   CONTACT FALLBACK PANEL
+   Shown when there is no form backend and mailto may do nothing.
+   ========================================================== */
+.fb{
+  grid-column:1/-1;
+  margin-top:4px; padding:18px 20px;
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:var(--r); text-align:center;
+  animation:pop .3s var(--ease);
+}
+.fb__title{
+  margin:0 0 14px; font-size:13.5px; color:var(--txt-dim);
+}
+.fb__row{
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+}
+.fb__addr{
+  margin:14px 0 0; font-size:13px; color:var(--txt-mute);
+}
+.fb__addr a{
+  color:var(--neon); border-bottom:1px solid transparent; transition:.25s;
+}
+.fb__addr a:hover{ border-color:var(--neon); }

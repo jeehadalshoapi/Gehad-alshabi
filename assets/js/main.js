@@ -71,6 +71,13 @@
     noFw:       { en: 'Plain HTML, CSS & JavaScript. No frameworks.', ar: 'HTML وCSS وJavaScript فقط. بدون أطر عمل.' },
     switchTo:   { en: 'العربية',          ar: 'English' },
     switchAria: { en: 'التبديل إلى العربية', ar: 'Switch to English' },
+    fbTitle:    { en: "Mail app didn't open? Use one of these instead:",
+                  ar: 'لم يفتح تطبيق البريد؟ استخدم أحد هذه الخيارات:' },
+    fbGmail:    { en: 'Open in Gmail',      ar: 'افتح في Gmail' },
+    fbWhats:    { en: 'Send on WhatsApp',   ar: 'أرسل عبر واتساب' },
+    fbCopy:     { en: 'Copy message',       ar: 'نسخ الرسالة' },
+    fbCopied:   { en: 'Copied ✓',           ar: 'تم النسخ ✓' },
+    fbAddr:     { en: 'Or email me directly at', ar: 'أو راسلني مباشرة على' },
     theme_auto: { en: 'Theme: follows your device — click for light',
                   ar: 'المظهر: حسب جهازك — اضغط للفاتح' },
     theme_light:{ en: 'Theme: light — click for dark',
@@ -733,6 +740,56 @@
     addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDoc(); });
   }
 
+  /* Always-available routes out, for when mailto does nothing */
+  function showFallback(su, bd, plain) {
+    var box = $('#form-fallback'); if (!box) return;
+    var addr = (C.contact || {}).email || '';
+    var phone = ((C.contact || {}).phone || '').replace(/[^0-9]/g, '');
+
+    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+                encodeURIComponent(addr) + '&su=' + su + '&body=' + bd;
+    var wa = phone ? 'https://wa.me/' + phone + '?text=' + bd : '';
+
+    box.innerHTML =
+      '<p class="fb__title">' + u('fbTitle') + '</p>' +
+      '<div class="fb__row">' +
+        '<a class="btn btn--sm btn--outline" href="' + esc(gmail) + '" target="_blank" rel="noopener">' + u('fbGmail') + '</a>' +
+        (wa ? '<a class="btn btn--sm btn--outline" href="' + esc(wa) + '" target="_blank" rel="noopener">' + u('fbWhats') + '</a>' : '') +
+        '<button class="btn btn--sm btn--ghost" type="button" id="fb-copy">' + u('fbCopy') + '</button>' +
+      '</div>' +
+      '<p class="fb__addr">' + u('fbAddr') + ' <a href="mailto:' + esc(addr) + '" dir="ltr">' + esc(addr) + '</a></p>';
+    box.hidden = false;
+
+    $('#fb-copy').addEventListener('click', function () {
+      var btn = this;
+      copyText(plain).then(function () {
+        btn.textContent = u('fbCopied');
+        setTimeout(function () { btn.textContent = u('fbCopy'); }, 2200);
+      });
+    });
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(legacyCopy);
+    }
+    return legacyCopy();
+
+    function legacyCopy() {
+      return new Promise(function (resolve) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        ta.remove();
+        resolve();
+      });
+    }
+  }
+
   /* contact form */
   function initForm() {
     var form = $('#contact-form'); if (!form) return;
@@ -744,6 +801,7 @@
       e.preventDefault();
       status.className = 'form-status';
       status.textContent = '';
+      var fb = $('#form-fallback'); if (fb) fb.hidden = true;
 
       var ok = true;
       $$('.field', form).forEach(function (f) {
@@ -759,11 +817,26 @@
       var data = new FormData(form);
 
       if (!endpoint) {
-        var subject = encodeURIComponent(data.get('subject') || ('Portfolio — ' + data.get('name')));
-        var body = encodeURIComponent(data.get('message') + '\n\n— ' + data.get('name') + ' <' + data.get('email') + '>');
-        location.href = 'mailto:' + mailto + '?subject=' + subject + '&body=' + body;
+        // No backend configured. Try the visitor's mail client, but never rely
+        // on it: plenty of devices have none, and the click would do nothing.
+        var nm = data.get('name'), em = data.get('email');
+        var subjectRaw = data.get('subject') || ('Portfolio — ' + nm);
+        var bodyRaw = data.get('message') + '\n\n— ' + nm + ' <' + em + '>';
+        var su = encodeURIComponent(subjectRaw), bd = encodeURIComponent(bodyRaw);
+
+        // open through a throwaway anchor so a missing handler cannot blank the page
+        try {
+          var a = document.createElement('a');
+          a.href = 'mailto:' + mailto + '?subject=' + su + '&body=' + bd;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { a.remove(); }, 0);
+        } catch (err) {}
+
         status.className = 'form-status ok';
         status.textContent = u('mailing');
+        showFallback(su, bd, subjectRaw + '\n\n' + bodyRaw);
         return;
       }
 
