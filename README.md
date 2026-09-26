@@ -76,10 +76,14 @@ All optional — the site falls back to styled placeholders if a file is absent.
 
 ## 4. Contact form
 
-By default the form opens the visitor's mail client (`mailto:`). To receive real emails:
+Messages are delivered by **Formspree** (`contact.formEndpoint` in `data/content.js`),
+free tier: 50 submissions/month. Each notification gets a `jeemdev.net — <subject>`
+subject line, and Reply goes straight back to the sender.
 
-1. Create a free form at <https://formspree.io>.
-2. Paste the endpoint URL into `contact.formEndpoint` in `data/content.js`.
+If that endpoint is ever emptied or Formspree fails, the form degrades gracefully:
+it attempts the visitor's mail client and then shows a panel offering a pre-filled
+Gmail compose link, a WhatsApp link built from `contact.phone`, a copy-to-clipboard
+button and the plain address — so a visitor is never left with a dead button.
 
 ## 5. Running it locally
 

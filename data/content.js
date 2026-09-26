@@ -43,7 +43,7 @@ window.CONTENT = {
       { label: { en: "Email", ar: "البريد" },          icon: "mail",     url: "mailto:gehadalshabi@jeemdev.net" },
     ],
     // Formspree / Getform endpoint. Empty = the form opens the visitor's mail client.
-    formEndpoint: "",
+    formEndpoint: "https://formspree.io/f/mjykezjy",
   },
 
   /* ---------- 3. STATS (hero counters) ---------- */

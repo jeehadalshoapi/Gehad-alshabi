@@ -840,6 +840,11 @@
         return;
       }
 
+      // give the notification a useful subject line and make Reply go to the sender
+      var who = data.get('name') || 'a visitor';
+      data.append('_subject', 'jeemdev.net — ' + (data.get('subject') || 'message from ' + who));
+      data.append('_replyto', data.get('email') || '');
+
       var btn = $('#send-btn');
       btn.disabled = true; btn.textContent = u('sending');
       fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
