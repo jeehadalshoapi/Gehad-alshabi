@@ -259,40 +259,98 @@ window.CONTENT = {
   /* ---------- 7. EDUCATION & CERTIFICATIONS ---------- */
   education: [
     {
-      degree:      { en: "Bachelor of Science in Mechatronics Engineering", ar: "بكالوريوس هندسة الميكاترونكس" },
+      degree:      { en: "B.Sc. Mechatronics Engineering", ar: "بكالوريوس هندسة الميكاترونكس" },
       institution: { en: "Sana'a University, Sana'a, Yemen", ar: "جامعة صنعاء، صنعاء، اليمن" },
       period:      { en: "Jun 2024", ar: "يونيو 2024" },
-      note:        "",
+      note:        { en: "Graduation project: a remote I/O module with a Modbus / Profibus / EtherNet-IP protocol converter.",
+                     ar: "مشروع التخرج: وحدة إدخال وإخراج بعيدة مع محوّل بروتوكولات Modbus وProfibus وEtherNet/IP." },
+      files: [
+        { label: { en: "Taught in English", ar: "إفادة الدراسة بالإنجليزية" },
+          file: "assets/certificates/medium-of-instruction-english.pdf", type: "pdf" },
+        { label: { en: "Graduation project report", ar: "تقرير مشروع التخرج" },
+          file: "assets/certificates/riom-graduation-project.pdf", type: "pdf" },
+      ],
     },
     {
       degree:      { en: "HSE Engineering Specialization", ar: "تخصص هندسة الصحة والسلامة والبيئة (HSE)" },
       institution: "",
       period:      "2025",
       note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/hse-engineering.pdf", type: "pdf" },
+      ],
     },
     {
       degree:      { en: "Workplace Safety and Health Diploma", ar: "دبلوم الصحة والسلامة المهنية" },
       institution: "",
       period:      "2025",
       note:        "",
+      files: [],
     },
     {
       degree:      { en: "Project Management Course", ar: "دورة إدارة المشاريع" },
       institution: "PBT",
       period:      "2025",
       note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/project-management-en.pdf", type: "pdf", lang: "en" },
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/project-management-ar.pdf", type: "pdf", lang: "ar" },
+      ],
     },
     {
       degree:      { en: "English Language Diploma", ar: "دبلوم اللغة الإنجليزية" },
       institution: "PBT",
       period:      "2025",
       note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/english-language-diploma.pdf", type: "pdf" },
+      ],
     },
     {
       degree:      { en: "International Computer Driving Licence (ICDL)", ar: "الرخصة الدولية لقيادة الحاسب الآلي (ICDL)" },
       institution: { en: "Sana'a University", ar: "جامعة صنعاء" },
       period:      "2024",
       note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/icdl.jpg", type: "image" },
+      ],
+    },
+    {
+      degree:      { en: "Microsoft Excel", ar: "مايكروسوفت إكسل" },
+      institution: "",
+      period:      "2025",
+      note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/ms-excel-en.pdf", type: "pdf", lang: "en" },
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/ms-excel-ar.pdf", type: "pdf", lang: "ar" },
+      ],
+    },
+    {
+      degree:      { en: "First Aid Course", ar: "دورة الإسعافات الأولية" },
+      institution: "",
+      period:      "",
+      note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/first-aid.jpg", type: "image" },
+      ],
+    },
+    {
+      degree:      { en: "Engineering Training", ar: "تدريب هندسي" },
+      institution: { en: "United Engineering & Automobile Co. Ltd.", ar: "الشركة المتحدة للهندسة والسيارات المحدودة" },
+      period:      "2024",
+      note:        "",
+      files: [
+        { label: { en: "Certificate", ar: "الشهادة" },
+          file: "assets/certificates/ueaco-training.jpg", type: "image" },
+      ],
     },
   ],
 
@@ -307,14 +365,16 @@ window.CONTENT = {
       title:    { en: "Golazo! — Live Football Scores", ar: "‎Golazo! — نتائج المباريات المباشرة" },
       subtitle: { en: "Freelance · live on Google Play", ar: "مشروع عمل حر · منشور على Google Play" },
       lead: {
-        en: "An Android app for live football scores, match data and league standings. I built it, published it and have maintained it across seven releases — owning app signing, versioning, the store listing, privacy policy and data-safety compliance.",
-        ar: "تطبيق أندرويد لنتائج المباريات المباشرة وبيانات المباريات وجداول ترتيب الدوريات. طوّرته ونشرته وأتابع صيانته عبر سبعة إصدارات — بما في ذلك التوقيع الرقمي وإدارة الإصدارات وصفحة المتجر وسياسة الخصوصية ومتطلبات أمان البيانات.",
+        en: "An Android app for football fans: live scores as the goals go in, match detail while the game is on, and league tables that update with every result.",
+        ar: "تطبيق أندرويد لمحبي كرة القدم: نتائج مباشرة لحظة تسجيل الأهداف، وتفاصيل المباراة أثناء إقامتها، وجداول ترتيب تتحدّث مع كل نتيجة.",
       },
       points: [
-        { en: "Built as three services: a TypeScript/Express data API with a live match scanner, a content orchestrator that renders and publishes cards, and the React Native (Expo) app.",
-          ar: "بُني على ثلاث خدمات: واجهة برمجية للبيانات بلغة TypeScript وExpress مع ماسح للمباريات المباشرة، ومنسّق محتوى ينتج البطاقات وينشرها، وتطبيق الهاتف بـ React Native (Expo)." },
-        { en: "Migrated the live product off a usage-priced platform onto a flat-cost VPS I manage, with no downtime — both systems running in parallel behind a tested DNS rollback plan.",
-          ar: "نقلت المنتج من منصة تُحاسب على الاستخدام إلى خادم VPS ثابت التكلفة أديره بنفسي، دون أي انقطاع — بتشغيل النظامين بالتوازي وخطة تراجع مجرّبة عبر DNS." },
+        { en: "Follow matches minute by minute and see results the moment they change.",
+          ar: "تابع المباريات دقيقة بدقيقة، وشاهد النتائج لحظة تغيّرها." },
+        { en: "Browse fixtures, match data and full league standings across competitions.",
+          ar: "تصفّح المباريات وبياناتها وجداول ترتيب الدوريات عبر البطولات المختلفة." },
+        { en: "Free on Google Play, kept current through seven releases.",
+          ar: "مجاني على Google Play، ويُحدَّث باستمرار عبر سبعة إصدارات." },
       ],
       tags:  ["React Native", "Expo", "TypeScript", "Express", "Redis", "DevOps"],
       image: "assets/projects/golazo.png",
@@ -325,14 +385,16 @@ window.CONTENT = {
       title:    { en: "Trading Index — Economic Calendar", ar: "‎Trading Index — التقويم الاقتصادي" },
       subtitle: { en: "Freelance · release-ready", ar: "مشروع عمل حر · جاهز للنشر" },
       lead: {
-        en: "A crypto-first economic calendar that tracks market impact, with push notifications, crash reporting and a trilingual interface in English, Arabic and Spanish — right-to-left included.",
-        ar: "تقويم اقتصادي يركّز على العملات الرقمية ويتتبّع أثرها على الأسواق، مع إشعارات فورية وتتبّع للأعطال وواجهة بثلاث لغات: الإنجليزية والعربية والإسبانية، بدعم كامل للاتجاه من اليمين لليسار.",
+        en: "An economic calendar built for crypto traders: which events are coming, how hard they are likely to hit the market, and a notification before they land.",
+        ar: "تقويم اقتصادي مُعدّ لمتداولي العملات الرقمية: ما الأحداث القادمة، ومدى تأثيرها المتوقّع على السوق، وإشعار قبل وقوعها.",
       },
       points: [
-        { en: "Designed the caching and scheduling around third-party API quotas: per-source Redis TTLs, thirteen deduplicated cron jobs, and serve-stale fallbacks that keep endpoints healthy when an upstream source fails.",
-          ar: "صمّمت نظام التخزين المؤقت والجدولة بما يتوافق مع حدود الواجهات الخارجية: مُدد صلاحية لكل مصدر في Redis، وثلاث عشرة مهمة مجدولة بلا تكرار، وآلية لتقديم آخر بيانات صالحة عند تعطّل أي مصدر." },
-        { en: "Integrated a DeepSeek LLM into the production pipeline for summarisation, classification and translation, with per-item caching and fail-open behaviour, feeding an SVG service that renders branded cards from live data across twelve templates.",
-          ar: "دمجت نموذج DeepSeek في خط الإنتاج للتلخيص والتصنيف والترجمة، مع تخزين مؤقت لكل عنصر وسلوك آمن عند الفشل، يغذّي خدمة تولّد بطاقات SVG من البيانات الحية عبر اثني عشر قالباً." },
+        { en: "See upcoming economic events ranked by the impact they are expected to have.",
+          ar: "اطّلع على الأحداث الاقتصادية القادمة مرتّبة حسب التأثير المتوقّع." },
+        { en: "Get a push notification ahead of the events that move your positions.",
+          ar: "احصل على إشعار فوري قبل الأحداث التي تؤثّر على مراكزك." },
+        { en: "Read it in English, Arabic or Spanish, with the layout adapting to each.",
+          ar: "استخدمه بالإنجليزية أو العربية أو الإسبانية، مع تكيّف التصميم مع كل لغة." },
       ],
       tags:  ["React Native", "TypeScript", "Redis", "LLM", "i18n / RTL", "Firebase"],
       image: "assets/projects/trading-index.png",
@@ -343,14 +405,14 @@ window.CONTENT = {
       title:    { en: "Self-Managed Production Server", ar: "خادم إنتاج ذاتي الإدارة" },
       subtitle: { en: "Personal infrastructure · both apps", ar: "بنية تحتية شخصية · للتطبيقَين" },
       lead: {
-        en: "The infrastructure behind both apps: an Ubuntu 24.04 VPS I provisioned and hardened myself, running everything in Docker containers.",
-        ar: "البنية التحتية خلف التطبيقَين: خادم Ubuntu 24.04 جهّزته وأمّنته بنفسي، ويشغّل كل شيء داخل حاويات Docker.",
+        en: "The infrastructure keeping both apps online: a server I provision, secure, monitor and back up myself, so the products stay available at a cost that does not move with usage.",
+        ar: "البنية التحتية التي تُبقي التطبيقَين يعملان: خادم أجهّزه وأؤمّنه وأراقبه وأنسخه احتياطياً بنفسي، لتبقى المنتجات متاحة بتكلفة ثابتة لا تتغيّر مع حجم الاستخدام.",
       },
       points: [
-        { en: "Key-only SSH, layered UFW and iptables firewalls, a shared Caddy reverse proxy with automatic Let's Encrypt HTTPS, Cloudflare DNS and email routing, nightly offsite backups and scripted deploys.",
-          ar: "دخول SSH بالمفاتيح فقط، وجدران حماية متعددة الطبقات (UFW وiptables)، وخادم وكيل Caddy مع شهادات Let's Encrypt تلقائية، وإدارة Cloudflare DNS وتوجيه البريد، ونسخ احتياطي ليلي خارجي، وعمليات نشر مؤتمتة." },
-        { en: "Developed and documented the product across six repositories using agentic AI tooling — Claude Code with MCP servers, custom skills and per-repository memory.",
-          ar: "طوّرت المنتج ووثّقته عبر ستة مستودعات باستخدام أدوات البرمجة بالوكلاء الأذكياء — Claude Code مع خوادم MCP ومهارات مخصصة وملفات ذاكرة لكل مستودع." },
+        { en: "Runs both apps behind automatic HTTPS, with nightly offsite backups.",
+          ar: "يشغّل التطبيقَين خلف HTTPS تلقائي، مع نسخ احتياطي ليلي خارجي." },
+        { en: "Replaced usage-priced hosting with a fixed monthly cost, with no downtime during the move.",
+          ar: "استبدل الاستضافة المحاسَبة على الاستخدام بتكلفة شهرية ثابتة، دون أي انقطاع أثناء النقل." },
       ],
       tags:  ["Docker", "Ubuntu", "Caddy", "Cloudflare", "DevOps", "AI Tooling"],
       image: "",
@@ -361,10 +423,15 @@ window.CONTENT = {
       title:    { en: "Remote I/O Module & Protocol Converter", ar: "وحدة الإدخال والإخراج البعيدة ومحوّل البروتوكولات" },
       subtitle: { en: "Graduation project · 2024", ar: "مشروع التخرج · 2024" },
       lead: {
-        en: "My graduation project: a remote I/O module with a protocol converter bridging Modbus, Profibus and EtherNet/IP, so industrial automation systems can be monitored and controlled remotely. The full 155-page report is in the documents section.",
-        ar: "مشروع تخرّجي: وحدة إدخال وإخراج بعيدة مع محوّل بروتوكولات يربط بين Modbus وProfibus وEtherNet/IP، بما يتيح مراقبة أنظمة الأتمتة الصناعية والتحكم بها عن بُعد. التقرير الكامل (155 صفحة) متاح في قسم المستندات.",
+        en: "A device that lets industrial machines speaking different control protocols work as one system, and be watched and operated from somewhere else entirely.",
+        ar: "جهاز يتيح للآلات الصناعية التي تتحدّث ببروتوكولات تحكّم مختلفة أن تعمل كنظام واحد، وأن تُراقَب وتُشغَّل من مكان آخر تماماً.",
       },
-      points: [],
+      points: [
+        { en: "Bridges Modbus, Profibus and EtherNet/IP, so equipment from different vendors shares one control system.",
+          ar: "يربط بين Modbus وProfibus وEtherNet/IP، بحيث تشترك معدّات من مورّدين مختلفين في نظام تحكّم واحد." },
+        { en: "Lets an automation line be monitored and controlled remotely instead of only on the factory floor.",
+          ar: "يسمح بمراقبة خط الأتمتة والتحكّم به عن بُعد بدلاً من الاقتصار على صالة الإنتاج." },
+      ],
       tags:  ["Modbus", "Profibus", "EtherNet/IP", "Industrial Automation", "Embedded"],
       image: "",
       links: [],
@@ -413,6 +480,7 @@ window.CONTENT = {
       file:  "assets/docs/Gehad_Alshabi_CV_EN.pdf",
       type:  "pdf",
       icon:  "file-text",
+      lang:  "en",          // shown while the site is in English
       primaryFor: "en",
     },
     {
@@ -422,6 +490,7 @@ window.CONTENT = {
       file:  "assets/docs/Gehad_Alshabi_CV_AR.pdf",
       type:  "pdf",
       icon:  "id",
+      lang:  "ar",          // shown while the site is in Arabic
       primaryFor: "ar",
     },
     // Certificates go here the same way, e.g.:
@@ -432,88 +501,6 @@ window.CONTENT = {
     //   type:  "pdf",
     //   icon:  "award",
     // },
-  ],
-
-  /* ---------- 9b. CERTIFICATES ----------
-     Shown as a filterable grid under the CV cards.
-     file   : path under assets/certificates/
-     type   : "pdf" previews in the viewer, "image" opens full size
-     group  : "education" | "professional" | "technical"
-     Anything listed here whose file is missing is flagged on the card,
-     so a broken link cannot go unnoticed.
-  ---------------------------------------- */
-  certificates: [
-    {
-      title: { en: "HSE Engineering Specialization", ar: "تخصص هندسة الصحة والسلامة والبيئة (HSE)" },
-      year:  "2025",
-      file:  "assets/certificates/hse-engineering.pdf",
-      type:  "pdf", group: "professional",
-    },
-    {
-      title: { en: "Project Management Course — PBT", ar: "دورة إدارة المشاريع — PBT" },
-      year:  "2025",
-      file:  "assets/certificates/project-management-en.pdf",
-      type:  "pdf", group: "professional",
-    },
-    {
-      title: { en: "Project Management Course — PBT (Arabic)", ar: "دورة إدارة المشاريع — PBT (عربي)" },
-      year:  "2025",
-      file:  "assets/certificates/project-management-ar.pdf",
-      type:  "pdf", group: "professional",
-    },
-    {
-      title: { en: "First Aid Course", ar: "دورة الإسعافات الأولية" },
-      year:  "",
-      file:  "assets/certificates/first-aid.jpg",
-      type:  "image", group: "professional",
-    },
-    {
-      title: { en: "Training — United Engineering & Automobile Co.", ar: "تدريب — الشركة المتحدة للهندسة والسيارات" },
-      year:  "2024",
-      file:  "assets/certificates/ueaco-training.jpg",
-      type:  "image", group: "professional",
-    },
-    {
-      title: { en: "Microsoft Excel", ar: "مايكروسوفت إكسل" },
-      year:  "2025",
-      file:  "assets/certificates/ms-excel-en.pdf",
-      type:  "pdf", group: "technical",
-    },
-    {
-      title: { en: "Microsoft Excel (Arabic)", ar: "مايكروسوفت إكسل (عربي)" },
-      year:  "2025",
-      file:  "assets/certificates/ms-excel-ar.pdf",
-      type:  "pdf", group: "technical",
-    },
-    {
-      title: { en: "Remote I/O Module (RIOM) — Graduation Project Report", ar: "وحدة الإدخال والإخراج البعيدة (RIOM) — تقرير مشروع التخرج" },
-      year:  "2024",
-      desc:  { en: "Full 155-page engineering report: protocol conversion for Modbus, Profibus and EtherNet/IP.",
-               ar: "تقرير هندسي كامل من 155 صفحة: تحويل بروتوكولات Modbus وProfibus وEtherNet/IP." },
-      file:  "assets/certificates/riom-graduation-project.pdf",
-      type:  "pdf", group: "education", featured: true,
-    },
-
-    {
-      title: { en: "International Computer Driving Licence (ICDL)", ar: "الرخصة الدولية لقيادة الحاسب الآلي (ICDL)" },
-      year:  "2024",
-      file:  "assets/certificates/icdl.jpg",
-      type:  "image", group: "technical",
-    },
-    {
-      title: { en: "English Language Diploma — PBT", ar: "دبلوم اللغة الإنجليزية — PBT" },
-      year:  "2025",
-      file:  "assets/certificates/english-language-diploma.pdf",
-      type:  "pdf", group: "education",
-    },
-    {
-      title: { en: "Medium of Instruction — English", ar: "إفادة الدراسة باللغة الإنجليزية" },
-      year:  "",
-      desc:  { en: "Sana'a University confirmation that the degree was taught in English.",
-               ar: "إفادة من جامعة صنعاء بأن الدراسة كانت باللغة الإنجليزية." },
-      file:  "assets/certificates/medium-of-instruction-english.pdf",
-      type:  "pdf", group: "education",
-    },
   ],
 
   /* ---------- 10. SEO ---------- */

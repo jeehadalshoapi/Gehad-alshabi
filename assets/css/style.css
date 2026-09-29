@@ -378,7 +378,7 @@ main,.nav,.footer{ position:relative; z-index:2; }
 .modal.open{ display:block; }
 .modal__backdrop{ position:absolute; inset:0; background:rgba(3,5,10,.86); backdrop-filter:blur(6px); }
 .modal__panel{
-  position:absolute; inset:4vh 4vw; background:var(--bg-2); border:1px solid var(--line);
+  position:absolute; inset:2vh 2vw; background:var(--bg-2); border:1px solid var(--line);
   border-radius:var(--r); overflow:hidden; display:flex; flex-direction:column;
   box-shadow:0 40px 120px rgba(0,0,0,.7); animation:pop .35s var(--ease);
 }
@@ -387,7 +387,10 @@ main,.nav,.footer{ position:relative; z-index:2; }
 .modal__title{ flex:1; font-family:var(--mono); font-size:13.5px; color:var(--neon); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .modal__x{ background:none; border:1px solid var(--line); border-radius:8px; width:32px; height:32px; color:var(--txt-dim); transition:.25s; }
 .modal__x:hover{ color:var(--neon-3); border-color:var(--neon-3); }
-.modal iframe{ flex:1; width:100%; border:0; background:#1a1a1a; }
+.modal iframe{
+  flex:1 1 auto; min-height:0; width:100%; height:100%;
+  border:0; background:#1a1a1a; display:block;
+}
 
 /* ---------- to top ---------- */
 .to-top{
@@ -664,44 +667,10 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
 }
 .fb__addr a:hover{ border-color:var(--neon); }
 
-/* ==========================================================
-   CERTIFICATES
-   ========================================================== */
-.certs-block{ margin-top:56px; }
-.certs{
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px;
-}
-.cert{
-  display:flex; align-items:center; gap:14px;
-  padding:16px 18px; background:var(--panel);
-  border:1px solid var(--line); border-radius:var(--r);
-  backdrop-filter:blur(8px); transition:.3s var(--ease);
-}
-.cert.hide{ display:none; }
-.cert:hover{
-  border-color:rgba(0,240,255,.4); transform:translateY(-3px);
-  box-shadow:0 14px 40px rgba(0,0,0,.35),var(--glow-soft);
-}
-.cert--featured{
-  grid-column:1/-1; border-color:rgba(0,240,255,.3); box-shadow:var(--glow-soft);
-}
-.cert__icon{
-  flex:none; width:38px; height:38px; display:grid; place-items:center;
-  border-radius:10px; background:rgba(0,240,255,.09);
-  border:1px solid rgba(0,240,255,.22); color:var(--neon);
-}
-.cert__icon svg{ width:18px; height:18px; }
-.cert__body{ flex:1; min-width:0; }
-.cert__body h4{ margin:0; font-size:14.5px; font-weight:600; line-height:1.35; }
-.cert__yr{ font-family:var(--mono); font-size:11px; color:var(--txt-mute); }
-.cert__body p{ margin:5px 0 0; font-size:13px; color:var(--txt-dim); }
-.cert__view{ flex:none; }
-.cert .doc__missing{ flex-basis:100%; }
-
 /* image preview inside the document viewer */
 #doc-modal-img{
-  flex:1; width:100%; min-height:0; object-fit:contain;
-  background:#12161f; padding:16px;
+  flex:1 1 auto; min-height:0; width:100%; height:100%;
+  object-fit:contain; background:#12161f; padding:16px; display:block;
 }
 
 /* ---------- projects still in development ---------- */
@@ -710,3 +679,18 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
 }
 .proj--soon .proj__thumb{ opacity:.82; }
 .proj--soon:hover .proj__thumb{ opacity:1; }
+
+/* ---------- a qualification carries its own certificate ---------- */
+.edu-files{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.edu-file{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:6px 12px; border-radius:99px;
+  background:rgba(0,240,255,.06); border:1px solid var(--line);
+  color:var(--txt-dim); font-size:12.5px; transition:.25s var(--ease);
+}
+.edu-file svg{ width:14px; height:14px; flex:none; }
+.edu-file:hover{
+  color:var(--neon); border-color:rgba(0,240,255,.45);
+  background:rgba(0,240,255,.12); box-shadow:var(--glow);
+}
+:root[dir="rtl"] .edu-file{ font-family:var(--font-ar); }

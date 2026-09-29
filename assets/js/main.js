@@ -78,12 +78,6 @@
     fbCopy:     { en: 'Copy message',       ar: 'نسخ الرسالة' },
     fbCopied:   { en: 'Copied ✓',           ar: 'تم النسخ ✓' },
     fbAddr:     { en: 'Or email me directly at', ar: 'أو راسلني مباشرة على' },
-    certsTitle: { en: 'Certificates & training', ar: 'الشهادات والدورات' },
-    certsLead:  { en: 'Every credential listed above, verifiable in one click.',
-                  ar: 'كل شهادة مذكورة أعلاه، يمكن التحقق منها بنقرة واحدة.' },
-    gEducation: { en: 'Education',    ar: 'التعليم' },
-    gProfessional: { en: 'Professional', ar: 'مهني' },
-    gTechnical: { en: 'Technical',    ar: 'تقني' },
     view:       { en: 'View',         ar: 'عرض' },
     soon:       { en: 'Coming soon',    ar: 'قريباً' },
     theme_auto: { en: 'Theme: follows your device — click for light',
@@ -313,11 +307,24 @@
     var ed = $('#edu');
     if (ed) {
       ed.innerHTML = (C.education || []).map(function (e) {
-        var note = t(e.note);
+        var note = t(e.note), inst = t(e.institution), yr = t(e.period);
+
+        // a document exists in one language or both; show the reader's
+        var files = (e.files || []).filter(function (f) { return !f.lang || f.lang === lang; });
+        var proof = files.map(function (f) {
+          var isImg = (f.type || '').toLowerCase() === 'image';
+          return '<button class="edu-file" type="button" data-view="' + esc(f.file) + '"' +
+                 ' data-kind="' + (isImg ? 'image' : 'pdf') + '"' +
+                 ' data-title="' + esc(t(e.degree)) + ' — ' + esc(t(f.label)) + '">' +
+                 ICONS.award + '<span>' + esc(t(f.label)) + '</span></button>';
+        }).join('');
+
         return '<div class="edu-card reveal"><h4>' + esc(t(e.degree)) + '</h4>' +
-          '<div class="inst">' + esc(t(e.institution)) + '</div>' +
-          '<div class="yr">' + esc(t(e.period)) + '</div>' +
-          (note ? '<div class="note">' + esc(note) + '</div>' : '') + '</div>';
+          (inst ? '<div class="inst">' + esc(inst) + '</div>' : '') +
+          (yr ? '<div class="yr">' + esc(yr) + '</div>' : '') +
+          (note ? '<div class="note">' + esc(note) + '</div>' : '') +
+          (proof ? '<div class="edu-files">' + proof + '</div>' : '') +
+          '</div>';
       }).join('');
     }
   }
@@ -442,71 +449,11 @@
       });
   }
 
-  function renderCerts() {
-    var grid = $('#certs-grid'); if (!grid) return;
-    var list = (C.certificates || []).filter(function (c) { return c.file; });
-
-    var lead = $('#certs-lead'); if (lead) lead.textContent = u('certsLead');
-    var head = $('#certs-title'); if (head) head.textContent = u('certsTitle');
-
-    var sec = $('#certs-block');
-    if (!list.length) { if (sec) sec.hidden = true; return; }
-    if (sec) sec.hidden = false;
-
-    grid.innerHTML = list.map(function (c) {
-      var isImg = (c.type || '').toLowerCase() === 'image';
-      var desc = t(c.desc);
-      var yr = t(c.year);
-      return '<article class="cert reveal' + (c.featured ? ' cert--featured' : '') + '"' +
-        ' data-g="' + esc(c.group || '') + '" data-file="' + esc(c.file) + '">' +
-        '<div class="cert__icon">' + icon(c.featured ? 'file-text' : 'award') + '</div>' +
-        '<div class="cert__body">' +
-          '<h4 dir="auto">' + esc(t(c.title)) + '</h4>' +
-          (yr ? '<span class="cert__yr">' + esc(yr) + '</span>' : '') +
-          (desc ? '<p dir="auto">' + esc(desc) + '</p>' : '') +
-        '</div>' +
-        '<button class="btn btn--sm btn--outline cert__view" type="button"' +
-          ' data-view="' + esc(c.file) + '"' +
-          ' data-kind="' + (isImg ? 'image' : 'pdf') + '"' +
-          ' data-title="' + esc(t(c.title)) + '">' + u('view') + '</button>' +
-        '<span class="doc__missing" hidden>' + u('missing') + '</span>' +
-        '</article>';
-    }).join('');
-
-    // group filter chips, built only from groups that actually have entries
-    var order = ['education', 'professional', 'technical'];
-    var label = { education: 'gEducation', professional: 'gProfessional', technical: 'gTechnical' };
-    var present = order.filter(function (g) {
-      return list.some(function (c) { return c.group === g; });
-    });
-    var f = $('#certs-filters');
-    if (f) {
-      f.innerHTML = present.length < 2 ? '' :
-        '<button class="chip active" data-cg="*">' + u('all') + '</button>' +
-        present.map(function (g) {
-          return '<button class="chip" data-cg="' + g + '">' + u(label[g]) + '</button>';
-        }).join('');
-    }
-
-    // flag anything listed whose file is not actually on the server
-    if (location.protocol !== 'file:') {
-      $$('.cert', grid).forEach(function (card) {
-        fetch(card.getAttribute('data-file'), { method: 'HEAD' })
-          .then(function (r) { if (!r.ok) throw 0; })
-          .catch(function () {
-            var m = $('.doc__missing', card); if (m) m.hidden = false;
-            var b = $('.cert__view', card);
-            if (b) { b.style.opacity = '.4'; b.style.pointerEvents = 'none'; }
-          });
-      });
-    }
-  }
-
   function renderAll() {
     try {
       renderChrome(); renderHero(); renderAbout(); renderSkills();
       renderExperience(); renderProjects(); renderDocs();
-      renderContact(); renderCerts(); renderCvShortcut();
+      renderContact(); renderCvShortcut();
       restartTyping();
     } catch (err) {
       console.error('[jeemdev] render error — check data/content.js', err);
@@ -721,16 +668,6 @@
   /* delegated clicks: project filters, read-more, document preview */
   function initDelegates() {
     document.addEventListener('click', function (ev) {
-      var cchip = ev.target.closest('#certs-filters .chip');
-      if (cchip) {
-        $$('#certs-filters .chip').forEach(function (c) { c.classList.toggle('active', c === cchip); });
-        var g = cchip.getAttribute('data-cg');
-        $$('#certs-grid .cert').forEach(function (card) {
-          card.classList.toggle('hide', g !== '*' && card.getAttribute('data-g') !== g);
-        });
-        return;
-      }
-
       var chip = ev.target.closest('#filters .chip');
       if (chip) {
         $$('#filters .chip').forEach(function (c) { c.classList.toggle('active', c === chip); });
