@@ -193,6 +193,21 @@
      RENDER
      ====================================================== */
 
+  /* Attached documents, rendered as chips that open in the viewer.
+     A file marked with a language is only offered to that language. */
+  function fileChips(files, context) {
+    var list = (files || []).filter(function (f) { return !f.lang || f.lang === lang; });
+    if (!list.length) return '';
+    return '<div class="file-chips">' + list.map(function (f) {
+      var isImg = (f.type || '').toLowerCase() === 'image';
+      var label = esc(t(f.label));
+      return '<button class="file-chip" type="button" data-view="' + esc(f.file) + '"' +
+             ' data-kind="' + (isImg ? 'image' : 'pdf') + '"' +
+             ' data-title="' + esc(context) + ' — ' + label + '">' +
+             ICONS.award + '<span>' + label + '</span></button>';
+    }).join('') + '</div>';
+  }
+
   function renderChrome() {
     var navs = $$('#nav-links a');
     u('nav') && UI.nav[lang].forEach(function (label, i) { if (navs[i]) navs[i].textContent = label; });
@@ -301,6 +316,7 @@
           '<p class="tl-meta">' + meta + '</p>' +
           (pts ? '<ul>' + pts + '</ul>' : '') +
           (tags ? '<div class="tags">' + tags + '</div>' : '') +
+          fileChips(e.files, t(e.company)) +
           '</article>';
       }).join('');
     }
@@ -309,21 +325,13 @@
       ed.innerHTML = (C.education || []).map(function (e) {
         var note = t(e.note), inst = t(e.institution), yr = t(e.period);
 
-        // a document exists in one language or both; show the reader's
-        var files = (e.files || []).filter(function (f) { return !f.lang || f.lang === lang; });
-        var proof = files.map(function (f) {
-          var isImg = (f.type || '').toLowerCase() === 'image';
-          return '<button class="edu-file" type="button" data-view="' + esc(f.file) + '"' +
-                 ' data-kind="' + (isImg ? 'image' : 'pdf') + '"' +
-                 ' data-title="' + esc(t(e.degree)) + ' — ' + esc(t(f.label)) + '">' +
-                 ICONS.award + '<span>' + esc(t(f.label)) + '</span></button>';
-        }).join('');
+        var proof = fileChips(e.files, t(e.degree));
 
         return '<div class="edu-card reveal"><h4>' + esc(t(e.degree)) + '</h4>' +
           (inst ? '<div class="inst">' + esc(inst) + '</div>' : '') +
           (yr ? '<div class="yr">' + esc(yr) + '</div>' : '') +
           (note ? '<div class="note">' + esc(note) + '</div>' : '') +
-          (proof ? '<div class="edu-files">' + proof + '</div>' : '') +
+          proof +
           '</div>';
       }).join('');
     }
@@ -362,6 +370,7 @@
         (body ? '<button class="more" type="button">' + u('readMore') + '</button>' : '') +
         (tags ? '<div class="tags">' + tags + '</div>' : '') +
         (links ? '<div class="proj__links">' + links + '</div>' : '') +
+        fileChips(p.files, t(p.title)) +
         '</div></article>';
     }).join('');
 

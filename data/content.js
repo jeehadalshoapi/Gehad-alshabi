@@ -238,6 +238,10 @@ window.CONTENT = {
           ar: "تنفيذ أعمال الصيانة التشخيصية وحل الأعطال الميكانيكية." },
       ],
       tags: ["Mechanical", "Diagnostics"],
+      files: [
+        { label: { en: "Training certificate", ar: "شهادة التدريب" },
+          file: "assets/certificates/ueaco-training.jpg", type: "image" },
+      ],
     },
     {
       role:     { en: "Electrical Technician", ar: "فني كهربائي" },
@@ -342,16 +346,6 @@ window.CONTENT = {
           file: "assets/certificates/first-aid.jpg", type: "image" },
       ],
     },
-    {
-      degree:      { en: "Engineering Training", ar: "تدريب هندسي" },
-      institution: { en: "United Engineering & Automobile Co. Ltd.", ar: "الشركة المتحدة للهندسة والسيارات المحدودة" },
-      period:      "2024",
-      note:        "",
-      files: [
-        { label: { en: "Certificate", ar: "الشهادة" },
-          file: "assets/certificates/ueaco-training.jpg", type: "image" },
-      ],
-    },
   ],
 
   /* ---------- 8. PROJECTS ----------
@@ -435,6 +429,10 @@ window.CONTENT = {
       tags:  ["Modbus", "Profibus", "EtherNet/IP", "Industrial Automation", "Embedded"],
       image: "",
       links: [],
+      files: [
+        { label: { en: "Full project report", ar: "تقرير المشروع الكامل" },
+          file: "assets/certificates/riom-graduation-project.pdf", type: "pdf" },
+      ],
       featured: false,
     },
   ],
