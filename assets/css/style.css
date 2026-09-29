@@ -633,7 +633,10 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
 }
 .proj__points li{ margin-bottom:9px; }
 .proj__points li::marker{ color:var(--neon); }
-.proj__points.clamp li:nth-child(n+2){ display:none; }
+.proj__points.clamp{ display:none; }
+.proj__lead{
+  margin:0; font-size:14px; color:var(--txt-dim); line-height:1.7; flex:1;
+}
 :root[dir="rtl"] .proj__points{ padding-inline-start:0; padding-inline-end:17px; }
 
 /* ==========================================================

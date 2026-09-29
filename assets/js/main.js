@@ -327,6 +327,7 @@
 
     grid.innerHTML = list.map(function (p, i) {
       var pts = p.points || (p.blurb ? [p.blurb] : []);
+      var lead = t(p.lead);
       var body = pts.map(function (x) { return '<li>' + esc(t(x)) + '</li>'; }).join('');
       var tags = (p.tags || []).map(function (x) { return '<span class="tag">' + esc(t(x)) + '</span>'; }).join('');
       var links = (p.links || []).filter(function (l) { return l.url && l.url !== '#'; })
@@ -335,13 +336,13 @@
         ? '<img src="' + esc(p.image) + '" alt="' + esc(t(p.title)) + '" loading="lazy" onerror="this.remove()">'
         : '<span class="ph">&lt;/&gt;</span>';
       var sub = t(p.subtitle);
-      var long = pts.length > 1;   // collapse to the first bullet until expanded
       return '<article class="proj reveal" data-tags="' + esc((p.tags || []).join('|')) + '" data-i="' + i + '">' +
         '<div class="proj__thumb">' + thumb + (p.featured ? '<span class="star">' + u('featured') + '</span>' : '') + '</div>' +
         '<div class="proj__body"><h3>' + esc(t(p.title)) + '</h3>' +
         (sub ? '<p class="proj__sub">' + esc(sub) + '</p>' : '') +
-        '<ul class="proj__points' + (long ? ' clamp' : '') + '">' + body + '</ul>' +
-        (long ? '<button class="more" type="button">' + u('readMore') + '</button>' : '') +
+        (lead ? '<p class="proj__lead" dir="auto">' + esc(lead) + '</p>' : '') +
+        (body ? '<ul class="proj__points clamp" dir="auto">' + body + '</ul>' : '') +
+        (body ? '<button class="more" type="button">' + u('readMore') + '</button>' : '') +
         (tags ? '<div class="tags">' + tags + '</div>' : '') +
         (links ? '<div class="proj__links">' + links + '</div>' : '') +
         '</div></article>';

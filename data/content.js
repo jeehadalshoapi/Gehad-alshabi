@@ -23,10 +23,9 @@ window.CONTENT = {
       { en: "Full-Stack Developer",            ar: "مطوّر Full-Stack" },
       { en: "DevOps & AI Automation",          ar: "DevOps وأتمتة بالذكاء الاصطناعي" },
     ],
-    // First sentence of the CV professional summary
     tagline: {
-      en: "CAD/CAM and Mechatronics Engineer with hands-on experience in sheet metal design and CNC fiber laser cutting of stainless steel using SolidWorks, AutoCAD and CypCut/CypNest.",
-      ar: "مهندس ميكاترونكس CAD/CAM امتلك خبرة عملية في تصميم منتجات الصاج المعدني وقص الفولاذ المقاوم للصدأ (الستانلس ستيل) على ماكينات CNC للقص بالفايبر ليزر باستخدام برامج SolidWorks وAutoCAD وCypCut/CypNest.",
+      en: "I design stainless steel parts for CNC fiber laser cutting — and build the software and infrastructure that runs alongside them.",
+      ar: "أصمّم قطع الستانلس ستيل للقص بالفايبر ليزر — وأبني البرمجيات والبنية التحتية التي تعمل إلى جانبها.",
     },
     location: { en: "Riyadh, Saudi Arabia", ar: "الرياض، المملكة العربية السعودية" },
     avatar:   "assets/img/avatar.jpg",
@@ -54,22 +53,20 @@ window.CONTENT = {
     { value: 5, suffix: "",  label: { en: "Certifications",      ar: "شهادات ودورات" } },
   ],
 
-  /* ---------- 4. ABOUT ----------
-     The rest of the CV professional summary, word for word.
-  ------------------------------- */
+  /* ---------- 4. ABOUT ---------- */
   about: {
     body: [
       {
-        en: "Skilled in converting engineering drawings into production-ready cutting files, optimizing nesting to reduce material waste, and setting laser cutting parameters.",
-        ar: "متمكن من تحويل الرسومات الهندسية إلى ملفات قص جاهزة للإنتاج، وتحسين توزيع القطع (Nesting) لتقليل هدر الخامات، وضبط معاملات القص بالليزر.",
+        en: "I'm a CAD/CAM and Mechatronics engineer in Riyadh. I design stainless steel parts in SolidWorks and AutoCAD, turn engineering drawings into production-ready DXF cutting files, and run them on CNC fiber laser machines — nesting parts to cut material waste, and setting power, speed, focus and assist gas for each sheet thickness.",
+        ar: "مهندس ميكاترونكس وCAD/CAM مقيم في الرياض. أصمّم قطع الستانلس ستيل باستخدام SolidWorks وAutoCAD، وأحوّل الرسومات الهندسية إلى ملفات قص DXF جاهزة للإنتاج، وأشغّلها على ماكينات القص بالفايبر ليزر — مع توزيع القطع لتقليل هدر الخامات، وضبط القدرة والسرعة والبؤرة وغاز المساعدة حسب سماكة اللوح.",
       },
       {
-        en: "Strong background in industrial automation, electrical control panels and solar power systems, with HSE training and a focus on quality and safe production.",
-        ar: "عندي خبرة في الأتمتة الصناعية ولوحات التحكم الكهربائية وأنظمة الطاقة الشمسية، مع تدريب في الصحة والسلامة والبيئة (HSE) وتركيز على الجودة والإنتاج الآمن.",
+        en: "Before that I worked in industrial automation and energy: designing and installing control panels for industrial machines, and power distribution for residential and commercial solar PV systems. I'm HSE trained, and I care as much about how safely something is built as how well.",
+        ar: "قبل ذلك عملت في الأتمتة الصناعية والطاقة: تصميم وتركيب لوحات التحكم للآلات الصناعية، ومخططات توزيع الطاقة لأنظمة الطاقة الشمسية السكنية والتجارية. لديّ تدريب في الصحة والسلامة والبيئة (HSE)، وأهتم بسلامة التنفيذ بقدر اهتمامي بجودته.",
       },
       {
-        en: "Also builds and operates full-stack software: a WhatsApp customer service chatbot for the company and two React Native mobile products backed by TypeScript APIs, Redis and Docker containers on a self-managed Linux server, including LLM-based automation.",
-        ar: "كما لدي الخبرة لعمل حلول برمجية متكاملة، منها روبوت محادثة واتساب لخدمة عملاء الشركة، وتطبيقات الهاتف باستخدام React Native مدعومان بواجهات برمجية بلغة TypeScript وقواعد Redis وحاويات Docker على خادم Linux اديره بنفسي، مع أتمتة تعتمد على نماذج الذكاء الاصطناعي.",
+        en: "The other half of my work is software. I built and deployed my company's WhatsApp customer service bot on the Meta Cloud API, and I run two React Native products backed by TypeScript APIs, Redis and Docker containers on an Ubuntu server I provision, harden and back up myself — including LLM automation in the production pipeline.",
+        ar: "والنصف الآخر من عملي هو البرمجة. طوّرت وأطلقت روبوت محادثة واتساب لخدمة عملاء الشركة عبر واجهة Meta Cloud API، وأدير تطبيقَين بـ React Native تدعمهما واجهات برمجية بلغة TypeScript وقواعد Redis وحاويات Docker على خادم Ubuntu أجهّزه وأؤمّنه وأنسخه احتياطياً بنفسي، مع أتمتة تعتمد على نماذج الذكاء الاصطناعي في بيئة الإنتاج.",
       },
     ],
     facts: [
@@ -300,21 +297,24 @@ window.CONTENT = {
   ],
 
   /* ---------- 8. PROJECTS ----------
-     'subtitle' is the CV's line under the project name.
-     'points'   are the CV bullets, word for word.
-     'image'    → drop a screenshot in assets/img/ and put its path here.
+     subtitle : the short status line under the title
+     lead     : one or two sentences, always visible
+     points   : supporting detail, revealed by "Read more"
+     image    : drop a screenshot in assets/img/ and put its path here
   ---------------------------------- */
   projects: [
     {
-      title:    { en: "Golazo! – Live Football Scores App", ar: "تطبيق Golazo! – نتائج مباريات كرة القدم المباشرة" },
-      subtitle: { en: "Freelance project – live on Google Play", ar: "مشروع عمل حر – منشور على Google Play" },
+      title:    { en: "Golazo! — Live Football Scores", ar: "‎Golazo! — نتائج المباريات المباشرة" },
+      subtitle: { en: "Freelance · live on Google Play", ar: "مشروع عمل حر · منشور على Google Play" },
+      lead: {
+        en: "An Android app for live football scores, match data and league standings. I built it, published it and have maintained it across seven releases — owning app signing, versioning, the store listing, privacy policy and data-safety compliance.",
+        ar: "تطبيق أندرويد لنتائج المباريات المباشرة وبيانات المباريات وجداول ترتيب الدوريات. طوّرته ونشرته وأتابع صيانته عبر سبعة إصدارات — بما في ذلك التوقيع الرقمي وإدارة الإصدارات وصفحة المتجر وسياسة الخصوصية ومتطلبات أمان البيانات.",
+      },
       points: [
-        { en: "Built and published an Android app for live football scores, match data and league standings, and maintained it across seven releases, owning app signing, versioning, store listing, privacy policy and data-safety compliance.",
-          ar: "تطوير ونشر تطبيق أندرويد لعرض نتائج المباريات المباشرة وبيانات المباريات وجداول ترتيب الدوريات، وإصدار سبع تحديثات له مع إدارة التوقيع الرقمي والإصدارات وصفحة المتجر وسياسة الخصوصية ومتطلبات أمان البيانات." },
-        { en: "Developed the product as three services: a TypeScript/Express data API with a live match scanner, a content orchestrator that renders and publishes cards, and the React Native (Expo) app.",
-          ar: "بناء المنتج على ثلاث خدمات: واجهة برمجية للبيانات بلغة TypeScript وExpress مع ماسح للمباريات المباشرة، ومنسّق محتوى ينتج البطاقات وينشرها، وتطبيق الهاتف بـ React Native (Expo)." },
-        { en: "Migrated the live product from a usage-priced platform to a flat-cost self-managed VPS with no downtime, running both systems in parallel with a tested DNS rollback plan.",
-          ar: "نقل المنتج من منصة استضافة تُحاسب على الاستخدام إلى خادم VPS ثابت التكلفة يديره بنفسه دون أي انقطاع، مع تشغيل النظامين بالتوازي وخطة تراجع مجرّبة عبر DNS." },
+        { en: "Built as three services: a TypeScript/Express data API with a live match scanner, a content orchestrator that renders and publishes cards, and the React Native (Expo) app.",
+          ar: "بُني على ثلاث خدمات: واجهة برمجية للبيانات بلغة TypeScript وExpress مع ماسح للمباريات المباشرة، ومنسّق محتوى ينتج البطاقات وينشرها، وتطبيق الهاتف بـ React Native (Expo)." },
+        { en: "Migrated the live product off a usage-priced platform onto a flat-cost VPS I manage, with no downtime — both systems running in parallel behind a tested DNS rollback plan.",
+          ar: "نقلت المنتج من منصة تُحاسب على الاستخدام إلى خادم VPS ثابت التكلفة أديره بنفسي، دون أي انقطاع — بتشغيل النظامين بالتوازي وخطة تراجع مجرّبة عبر DNS." },
       ],
       tags:  ["React Native", "Expo", "TypeScript", "Express", "Redis", "DevOps"],
       image: "",
@@ -322,15 +322,17 @@ window.CONTENT = {
       featured: true,
     },
     {
-      title:    { en: "Trading Index – Economic Calendar & Market Analysis App", ar: "تطبيق Trading Index – التقويم الاقتصادي وتحليل الأسواق" },
-      subtitle: { en: "Freelance project – release-ready", ar: "مشروع عمل حر – جاهز للنشر" },
+      title:    { en: "Trading Index — Economic Calendar", ar: "‎Trading Index — التقويم الاقتصادي" },
+      subtitle: { en: "Freelance · release-ready", ar: "مشروع عمل حر · جاهز للنشر" },
+      lead: {
+        en: "A crypto-first economic calendar that tracks market impact, with push notifications, crash reporting and a trilingual interface in English, Arabic and Spanish — right-to-left included.",
+        ar: "تقويم اقتصادي يركّز على العملات الرقمية ويتتبّع أثرها على الأسواق، مع إشعارات فورية وتتبّع للأعطال وواجهة بثلاث لغات: الإنجليزية والعربية والإسبانية، بدعم كامل للاتجاه من اليمين لليسار.",
+      },
       points: [
-        { en: "Built a crypto-first economic calendar and market-impact app with push notifications (Firebase Cloud Messaging and Expo), crash reporting (Sentry) and a trilingual interface in English, Arabic and Spanish, including full right-to-left layout.",
-          ar: "تطوير تطبيق للتقويم الاقتصادي وتأثيره على الأسواق مع التركيز على العملات الرقمية، يشمل الإشعارات الفورية (Firebase Cloud Messaging وExpo) وتتبع الأعطال (Sentry) وواجهة بثلاث لغات (الإنجليزية والعربية والإسبانية) مع دعم كامل للاتجاه من اليمين لليسار." },
-        { en: "Designed caching and scheduling around third-party API quotas: per-source Redis TTLs, thirteen deduplicated cron jobs and serve-stale fallbacks that keep endpoints healthy when an upstream source fails.",
-          ar: "تصميم نظام التخزين المؤقت والجدولة بما يتوافق مع حدود الواجهات الخارجية: مُدد صلاحية (TTL) لكل مصدر في Redis، وثلاث عشرة مهمة مجدولة بلا تكرار، وآلية لتقديم آخر بيانات صالحة عند تعطل أي مصدر." },
-        { en: "Integrated a DeepSeek LLM into the production pipeline for summarization, classification and translation with per-item caching and fail-open behaviour, and built an SVG rendering service generating branded cards from live data across twelve templates.",
-          ar: "دمج نموذج DeepSeek في خط الإنتاج للتلخيص والتصنيف والترجمة مع تخزين مؤقت لكل عنصر وسلوك آمن عند الفشل، وبناء خدمة توليد بطاقات SVG من البيانات الحية عبر اثني عشر قالباً." },
+        { en: "Designed the caching and scheduling around third-party API quotas: per-source Redis TTLs, thirteen deduplicated cron jobs, and serve-stale fallbacks that keep endpoints healthy when an upstream source fails.",
+          ar: "صمّمت نظام التخزين المؤقت والجدولة بما يتوافق مع حدود الواجهات الخارجية: مُدد صلاحية لكل مصدر في Redis، وثلاث عشرة مهمة مجدولة بلا تكرار، وآلية لتقديم آخر بيانات صالحة عند تعطّل أي مصدر." },
+        { en: "Integrated a DeepSeek LLM into the production pipeline for summarisation, classification and translation, with per-item caching and fail-open behaviour, feeding an SVG service that renders branded cards from live data across twelve templates.",
+          ar: "دمجت نموذج DeepSeek في خط الإنتاج للتلخيص والتصنيف والترجمة، مع تخزين مؤقت لكل عنصر وسلوك آمن عند الفشل، يغذّي خدمة تولّد بطاقات SVG من البيانات الحية عبر اثني عشر قالباً." },
       ],
       tags:  ["React Native", "TypeScript", "Redis", "LLM", "i18n / RTL", "Firebase"],
       image: "",
@@ -338,13 +340,17 @@ window.CONTENT = {
       featured: true,
     },
     {
-      title:    { en: "Self-Managed Production Server & DevOps", ar: "خادم إنتاج ذاتي الإدارة وعمليات DevOps" },
-      subtitle: { en: "Personal infrastructure for both apps", ar: "بنية تحتية شخصية للتطبيقين" },
+      title:    { en: "Self-Managed Production Server", ar: "خادم إنتاج ذاتي الإدارة" },
+      subtitle: { en: "Personal infrastructure · both apps", ar: "بنية تحتية شخصية · للتطبيقَين" },
+      lead: {
+        en: "The infrastructure behind both apps: an Ubuntu 24.04 VPS I provisioned and hardened myself, running everything in Docker containers.",
+        ar: "البنية التحتية خلف التطبيقَين: خادم Ubuntu 24.04 جهّزته وأمّنته بنفسي، ويشغّل كل شيء داخل حاويات Docker.",
+      },
       points: [
-        { en: "Provisioned and hardened an Ubuntu 24.04 VPS hosting both products in Docker containers: key-only SSH, layered UFW and iptables firewalls, a shared Caddy reverse proxy with automatic Let's Encrypt HTTPS, Cloudflare DNS and email routing, nightly offsite backups and scripted deploys.",
-          ar: "تجهيز وتأمين خادم Ubuntu 24.04 يستضيف التطبيقين داخل حاويات Docker: دخول SSH بالمفاتيح فقط، وجدران حماية متعددة الطبقات (UFW وiptables)، وخادم وكيل Caddy مع شهادات Let's Encrypt تلقائية، وإدارة Cloudflare DNS وتوجيه البريد، ونسخ احتياطي ليلي خارجي، وعمليات نشر مؤتمتة." },
-        { en: "Used agentic AI tooling (Claude Code with MCP servers, custom skills and per-repository memory files) to develop and document a multi-repository product across six repositories.",
-          ar: "استخدام أدوات البرمجة بالوكلاء الأذكياء (Claude Code مع خوادم MCP ومهارات مخصصة وملفات ذاكرة لكل مستودع) لتطوير وتوثيق منتج موزّع على ستة مستودعات." },
+        { en: "Key-only SSH, layered UFW and iptables firewalls, a shared Caddy reverse proxy with automatic Let's Encrypt HTTPS, Cloudflare DNS and email routing, nightly offsite backups and scripted deploys.",
+          ar: "دخول SSH بالمفاتيح فقط، وجدران حماية متعددة الطبقات (UFW وiptables)، وخادم وكيل Caddy مع شهادات Let's Encrypt تلقائية، وإدارة Cloudflare DNS وتوجيه البريد، ونسخ احتياطي ليلي خارجي، وعمليات نشر مؤتمتة." },
+        { en: "Developed and documented the product across six repositories using agentic AI tooling — Claude Code with MCP servers, custom skills and per-repository memory.",
+          ar: "طوّرت المنتج ووثّقته عبر ستة مستودعات باستخدام أدوات البرمجة بالوكلاء الأذكياء — Claude Code مع خوادم MCP ومهارات مخصصة وملفات ذاكرة لكل مستودع." },
       ],
       tags:  ["Docker", "Ubuntu", "Caddy", "Cloudflare", "DevOps", "AI Tooling"],
       image: "",
@@ -352,12 +358,13 @@ window.CONTENT = {
       featured: true,
     },
     {
-      title:    { en: "Remote I/O Module (RIOM) and Protocol Converter", ar: "وحدة الإدخال والإخراج البعيدة ومحوّل البروتوكولات (RIOM)" },
-      subtitle: { en: "Graduation Project – 2024", ar: "مشروع التخرج – 2024" },
-      points: [
-        { en: "Designed and developed a remote I/O module with a protocol conversion system supporting Modbus, Profibus and EtherNet/IP to integrate industrial automation systems and enable remote monitoring and control.",
-          ar: "تصميم وتطوير وحدة إدخال وإخراج بعيدة مع نظام لتحويل بروتوكولات الاتصال الصناعي يدعم Modbus وProfibus وEtherNet/IP، لدمج أنظمة الأتمتة الصناعية والمراقبة والتحكم عن بُعد." },
-      ],
+      title:    { en: "Remote I/O Module & Protocol Converter", ar: "وحدة الإدخال والإخراج البعيدة ومحوّل البروتوكولات" },
+      subtitle: { en: "Graduation project · 2024", ar: "مشروع التخرج · 2024" },
+      lead: {
+        en: "My graduation project: a remote I/O module with a protocol converter bridging Modbus, Profibus and EtherNet/IP, so industrial automation systems can be monitored and controlled remotely. The full 155-page report is in the documents section.",
+        ar: "مشروع تخرّجي: وحدة إدخال وإخراج بعيدة مع محوّل بروتوكولات يربط بين Modbus وProfibus وEtherNet/IP، بما يتيح مراقبة أنظمة الأتمتة الصناعية والتحكم بها عن بُعد. التقرير الكامل (155 صفحة) متاح في قسم المستندات.",
+      },
+      points: [],
       tags:  ["Modbus", "Profibus", "EtherNet/IP", "Industrial Automation", "Embedded"],
       image: "",
       links: [],
