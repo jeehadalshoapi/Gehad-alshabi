@@ -2,3 +2,9 @@
 Thumbs.db
 node_modules/
 *.log
+
+# Documents that stay off the public site.
+# Holds the national ID / address proof, the degree certificate (date of
+# birth, student number, photo), referee letters carrying their personal
+# phone numbers, transcripts and high-school certificates.
+assets/certificates/_private/

@@ -400,6 +400,90 @@ window.CONTENT = {
     // },
   ],
 
+  /* ---------- 9b. CERTIFICATES ----------
+     Shown as a filterable grid under the CV cards.
+     file   : path under assets/certificates/
+     type   : "pdf" previews in the viewer, "image" opens full size
+     group  : "education" | "professional" | "technical"
+     Anything listed here whose file is missing is flagged on the card,
+     so a broken link cannot go unnoticed.
+  ---------------------------------------- */
+  certificates: [
+    {
+      title: { en: "HSE Engineering Specialization", ar: "تخصص هندسة الصحة والسلامة والبيئة (HSE)" },
+      year:  "2025",
+      file:  "assets/certificates/hse-engineering.pdf",
+      type:  "pdf", group: "professional",
+    },
+    {
+      title: { en: "Project Management Course — PBT", ar: "دورة إدارة المشاريع — PBT" },
+      year:  "2025",
+      file:  "assets/certificates/project-management-en.pdf",
+      type:  "pdf", group: "professional",
+    },
+    {
+      title: { en: "Project Management Course — PBT (Arabic)", ar: "دورة إدارة المشاريع — PBT (عربي)" },
+      year:  "2025",
+      file:  "assets/certificates/project-management-ar.pdf",
+      type:  "pdf", group: "professional",
+    },
+    {
+      title: { en: "First Aid Course", ar: "دورة الإسعافات الأولية" },
+      year:  "",
+      file:  "assets/certificates/first-aid.jpg",
+      type:  "image", group: "professional",
+    },
+    {
+      title: { en: "Training — United Engineering & Automobile Co.", ar: "تدريب — الشركة المتحدة للهندسة والسيارات" },
+      year:  "2024",
+      file:  "assets/certificates/ueaco-training.jpg",
+      type:  "image", group: "professional",
+    },
+    {
+      title: { en: "Microsoft Excel", ar: "مايكروسوفت إكسل" },
+      year:  "2025",
+      file:  "assets/certificates/ms-excel-en.pdf",
+      type:  "pdf", group: "technical",
+    },
+    {
+      title: { en: "Microsoft Excel (Arabic)", ar: "مايكروسوفت إكسل (عربي)" },
+      year:  "2025",
+      file:  "assets/certificates/ms-excel-ar.pdf",
+      type:  "pdf", group: "technical",
+    },
+    {
+      title: { en: "Remote I/O Module (RIOM) — Graduation Project Report", ar: "وحدة الإدخال والإخراج البعيدة (RIOM) — تقرير مشروع التخرج" },
+      year:  "2024",
+      desc:  { en: "Full 155-page engineering report: protocol conversion for Modbus, Profibus and EtherNet/IP.",
+               ar: "تقرير هندسي كامل من 155 صفحة: تحويل بروتوكولات Modbus وProfibus وEtherNet/IP." },
+      file:  "assets/certificates/riom-graduation-project.pdf",
+      type:  "pdf", group: "education", featured: true,
+    },
+
+    /* --- re-supply these three files, then uncomment ---
+    {
+      title: { en: "International Computer Driving Licence (ICDL)", ar: "الرخصة الدولية لقيادة الحاسب الآلي (ICDL)" },
+      year:  "2024",
+      file:  "assets/certificates/icdl.jpg",
+      type:  "image", group: "technical",
+    },
+    {
+      title: { en: "English Language Diploma — PBT", ar: "دبلوم اللغة الإنجليزية — PBT" },
+      year:  "2025",
+      file:  "assets/certificates/english-language-diploma.pdf",
+      type:  "pdf", group: "education",
+    },
+    {
+      title: { en: "Medium of Instruction — English", ar: "إفادة الدراسة باللغة الإنجليزية" },
+      year:  "",
+      desc:  { en: "Sana'a University confirmation that the degree was taught in English.",
+               ar: "إفادة من جامعة صنعاء بأن الدراسة كانت باللغة الإنجليزية." },
+      file:  "assets/certificates/medium-of-instruction-english.pdf",
+      type:  "pdf", group: "education",
+    },
+    --- */
+  ],
+
   /* ---------- 10. SEO ---------- */
   seo: {
     siteUrl: "https://gehadalshabi.jeemdev.net",

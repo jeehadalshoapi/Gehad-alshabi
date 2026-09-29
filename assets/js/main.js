@@ -78,6 +78,13 @@
     fbCopy:     { en: 'Copy message',       ar: 'نسخ الرسالة' },
     fbCopied:   { en: 'Copied ✓',           ar: 'تم النسخ ✓' },
     fbAddr:     { en: 'Or email me directly at', ar: 'أو راسلني مباشرة على' },
+    certsTitle: { en: 'Certificates & training', ar: 'الشهادات والدورات' },
+    certsLead:  { en: 'Every credential listed above, verifiable in one click.',
+                  ar: 'كل شهادة مذكورة أعلاه، يمكن التحقق منها بنقرة واحدة.' },
+    gEducation: { en: 'Education',    ar: 'التعليم' },
+    gProfessional: { en: 'Professional', ar: 'مهني' },
+    gTechnical: { en: 'Technical',    ar: 'تقني' },
+    view:       { en: 'View',         ar: 'عرض' },
     theme_auto: { en: 'Theme: follows your device — click for light',
                   ar: 'المظهر: حسب جهازك — اضغط للفاتح' },
     theme_light:{ en: 'Theme: light — click for dark',
@@ -424,11 +431,71 @@
       });
   }
 
+  function renderCerts() {
+    var grid = $('#certs-grid'); if (!grid) return;
+    var list = (C.certificates || []).filter(function (c) { return c.file; });
+
+    var lead = $('#certs-lead'); if (lead) lead.textContent = u('certsLead');
+    var head = $('#certs-title'); if (head) head.textContent = u('certsTitle');
+
+    var sec = $('#certs-block');
+    if (!list.length) { if (sec) sec.hidden = true; return; }
+    if (sec) sec.hidden = false;
+
+    grid.innerHTML = list.map(function (c) {
+      var isImg = (c.type || '').toLowerCase() === 'image';
+      var desc = t(c.desc);
+      var yr = t(c.year);
+      return '<article class="cert reveal' + (c.featured ? ' cert--featured' : '') + '"' +
+        ' data-g="' + esc(c.group || '') + '" data-file="' + esc(c.file) + '">' +
+        '<div class="cert__icon">' + icon(c.featured ? 'file-text' : 'award') + '</div>' +
+        '<div class="cert__body">' +
+          '<h4 dir="auto">' + esc(t(c.title)) + '</h4>' +
+          (yr ? '<span class="cert__yr">' + esc(yr) + '</span>' : '') +
+          (desc ? '<p dir="auto">' + esc(desc) + '</p>' : '') +
+        '</div>' +
+        '<button class="btn btn--sm btn--outline cert__view" type="button"' +
+          ' data-view="' + esc(c.file) + '"' +
+          ' data-kind="' + (isImg ? 'image' : 'pdf') + '"' +
+          ' data-title="' + esc(t(c.title)) + '">' + u('view') + '</button>' +
+        '<span class="doc__missing" hidden>' + u('missing') + '</span>' +
+        '</article>';
+    }).join('');
+
+    // group filter chips, built only from groups that actually have entries
+    var order = ['education', 'professional', 'technical'];
+    var label = { education: 'gEducation', professional: 'gProfessional', technical: 'gTechnical' };
+    var present = order.filter(function (g) {
+      return list.some(function (c) { return c.group === g; });
+    });
+    var f = $('#certs-filters');
+    if (f) {
+      f.innerHTML = present.length < 2 ? '' :
+        '<button class="chip active" data-cg="*">' + u('all') + '</button>' +
+        present.map(function (g) {
+          return '<button class="chip" data-cg="' + g + '">' + u(label[g]) + '</button>';
+        }).join('');
+    }
+
+    // flag anything listed whose file is not actually on the server
+    if (location.protocol !== 'file:') {
+      $$('.cert', grid).forEach(function (card) {
+        fetch(card.getAttribute('data-file'), { method: 'HEAD' })
+          .then(function (r) { if (!r.ok) throw 0; })
+          .catch(function () {
+            var m = $('.doc__missing', card); if (m) m.hidden = false;
+            var b = $('.cert__view', card);
+            if (b) { b.style.opacity = '.4'; b.style.pointerEvents = 'none'; }
+          });
+      });
+    }
+  }
+
   function renderAll() {
     try {
       renderChrome(); renderHero(); renderAbout(); renderSkills();
       renderExperience(); renderProjects(); renderDocs();
-      renderContact(); renderCvShortcut();
+      renderContact(); renderCerts(); renderCvShortcut();
       restartTyping();
     } catch (err) {
       console.error('[jeemdev] render error — check data/content.js', err);
@@ -643,6 +710,16 @@
   /* delegated clicks: project filters, read-more, document preview */
   function initDelegates() {
     document.addEventListener('click', function (ev) {
+      var cchip = ev.target.closest('#certs-filters .chip');
+      if (cchip) {
+        $$('#certs-filters .chip').forEach(function (c) { c.classList.toggle('active', c === cchip); });
+        var g = cchip.getAttribute('data-cg');
+        $$('#certs-grid .cert').forEach(function (card) {
+          card.classList.toggle('hide', g !== '*' && card.getAttribute('data-g') !== g);
+        });
+        return;
+      }
+
       var chip = ev.target.closest('#filters .chip');
       if (chip) {
         $$('#filters .chip').forEach(function (c) { c.classList.toggle('active', c === chip); });
@@ -663,7 +740,8 @@
       }
 
       var view = ev.target.closest('[data-view]');
-      if (view) openDoc(view.getAttribute('data-view'), view.getAttribute('data-title'));
+      if (view) openDoc(view.getAttribute('data-view'), view.getAttribute('data-title'),
+                        view.getAttribute('data-kind'));
     });
   }
 
@@ -716,11 +794,17 @@
 
   /* document viewer modal */
   var modal = null;
-  function openDoc(file, title) {
+  function openDoc(file, title, kind) {
     modal = modal || $('#doc-modal');
     if (!modal) return;
     $('#doc-modal-title').textContent = title || file;
-    $('#doc-modal-frame').src = file;
+
+    // an <iframe> renders a PDF; an image reads better in an <img>
+    var frame = $('#doc-modal-frame'), pic = $('#doc-modal-img');
+    var isImg = kind === 'image' || /\.(png|jpe?g|webp|gif)$/i.test(file);
+    if (pic) { pic.hidden = !isImg; pic.src = isImg ? file : ''; }
+    frame.hidden = isImg;
+    $('#doc-modal-frame').src = isImg ? '' : file;
     $('#doc-modal-dl').href = file;
     $('#doc-modal-tab').href = file;
     modal.classList.add('open');
@@ -732,6 +816,7 @@
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     $('#doc-modal-frame').src = '';
+    var pic = $('#doc-modal-img'); if (pic) { pic.src = ''; pic.hidden = true; }
     document.body.style.overflow = '';
   }
   function initModal() {
