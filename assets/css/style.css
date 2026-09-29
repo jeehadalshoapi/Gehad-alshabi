@@ -166,7 +166,7 @@ main,.nav,.footer{ position:relative; z-index:2; }
 @keyframes pulse{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
 .hero__cta{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:46px; }
 
-.hero__stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; list-style:none; padding:0; margin:0 0 34px; }
+.hero__stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,200px)); gap:14px; list-style:none; padding:0; margin:0 0 34px; }
 .hero__stats li{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
   padding:16px 18px; backdrop-filter:blur(8px); transition:.3s var(--ease);
@@ -672,6 +672,10 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
   flex:1 1 auto; min-height:0; width:100%; height:100%;
   object-fit:contain; background:#12161f; padding:16px; display:block;
 }
+/* display:block on an id selector beats the UA rule for [hidden],
+   so the hidden element must be told to stay hidden explicitly */
+.modal iframe[hidden],
+#doc-modal-img[hidden]{ display:none; }
 
 /* ---------- projects still in development ---------- */
 .star--soon{
