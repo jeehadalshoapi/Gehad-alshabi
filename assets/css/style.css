@@ -703,3 +703,10 @@ body,.nav,.card,.skill-card,.proj,.doc,.edu-card,.facts li,.hero__stats li,
   flex:1; width:100%; min-height:0; object-fit:contain;
   background:#12161f; padding:16px;
 }
+
+/* ---------- projects still in development ---------- */
+.star--soon{
+  background:rgba(255,46,147,.14); border-color:rgba(255,46,147,.45); color:var(--neon-3);
+}
+.proj--soon .proj__thumb{ opacity:.82; }
+.proj--soon:hover .proj__thumb{ opacity:1; }

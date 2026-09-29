@@ -8,3 +8,6 @@ node_modules/
 # birth, student number, photo), referee letters carrying their personal
 # phone numbers, transcripts and high-school certificates.
 assets/certificates/_private/
+
+# original logo artwork — only the generated 16:9 thumbnails are published
+assets/projects/_src/

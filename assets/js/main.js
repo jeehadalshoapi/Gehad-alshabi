@@ -85,6 +85,7 @@
     gProfessional: { en: 'Professional', ar: 'مهني' },
     gTechnical: { en: 'Technical',    ar: 'تقني' },
     view:       { en: 'View',         ar: 'عرض' },
+    soon:       { en: 'Coming soon',    ar: 'قريباً' },
     theme_auto: { en: 'Theme: follows your device — click for light',
                   ar: 'المظهر: حسب جهازك — اضغط للفاتح' },
     theme_light:{ en: 'Theme: light — click for dark',
@@ -323,7 +324,13 @@
 
   function renderProjects() {
     var grid = $('#projects-grid'); if (!grid) return;
-    var list = C.projects || [];
+    var shipped = (C.projects || []).map(function (p) { return p; });
+    var soon = (C.upcoming || []).map(function (p) {
+      var c = {}; for (var k in p) c[k] = p[k];
+      c.soon = true; c.links = []; c.featured = false;
+      return c;
+    });
+    var list = shipped.concat(soon);
 
     grid.innerHTML = list.map(function (p, i) {
       var pts = p.points || (p.blurb ? [p.blurb] : []);
@@ -336,8 +343,11 @@
         ? '<img src="' + esc(p.image) + '" alt="' + esc(t(p.title)) + '" loading="lazy" onerror="this.remove()">'
         : '<span class="ph">&lt;/&gt;</span>';
       var sub = t(p.subtitle);
-      return '<article class="proj reveal" data-tags="' + esc((p.tags || []).join('|')) + '" data-i="' + i + '">' +
-        '<div class="proj__thumb">' + thumb + (p.featured ? '<span class="star">' + u('featured') + '</span>' : '') + '</div>' +
+      var badge = p.soon ? '<span class="star star--soon">' + u('soon') + '</span>'
+                         : (p.featured ? '<span class="star">' + u('featured') + '</span>' : '');
+      return '<article class="proj reveal' + (p.soon ? ' proj--soon' : '') + '" data-tags="' +
+        esc((p.tags || []).join('|')) + '" data-i="' + i + '">' +
+        '<div class="proj__thumb">' + thumb + badge + '</div>' +
         '<div class="proj__body"><h3>' + esc(t(p.title)) + '</h3>' +
         (sub ? '<p class="proj__sub">' + esc(sub) + '</p>' : '') +
         (lead ? '<p class="proj__lead" dir="auto">' + esc(lead) + '</p>' : '') +

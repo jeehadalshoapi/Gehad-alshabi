@@ -317,7 +317,7 @@ window.CONTENT = {
           ar: "نقلت المنتج من منصة تُحاسب على الاستخدام إلى خادم VPS ثابت التكلفة أديره بنفسي، دون أي انقطاع — بتشغيل النظامين بالتوازي وخطة تراجع مجرّبة عبر DNS." },
       ],
       tags:  ["React Native", "Expo", "TypeScript", "Express", "Redis", "DevOps"],
-      image: "",
+      image: "assets/projects/golazo.png",
       links: [{ label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.golazo.wc2026" }],
       featured: true,
     },
@@ -335,7 +335,7 @@ window.CONTENT = {
           ar: "دمجت نموذج DeepSeek في خط الإنتاج للتلخيص والتصنيف والترجمة، مع تخزين مؤقت لكل عنصر وسلوك آمن عند الفشل، يغذّي خدمة تولّد بطاقات SVG من البيانات الحية عبر اثني عشر قالباً." },
       ],
       tags:  ["React Native", "TypeScript", "Redis", "LLM", "i18n / RTL", "Firebase"],
-      image: "",
+      image: "assets/projects/trading-index.png",
       links: [],
       featured: true,
     },
@@ -369,6 +369,33 @@ window.CONTENT = {
       image: "",
       links: [],
       featured: false,
+    },
+  ],
+
+  /* ---------- 8b. IN DEVELOPMENT ----------
+     Shown with a "Coming soon" badge and no links.
+     Move an entry into `projects` above once it ships.
+  ------------------------------------------ */
+  upcoming: [
+    {
+      title: "Brieflix",
+      subtitle: { en: "In development", ar: "قيد التطوير" },
+      lead: {
+        en: "Currently in development — more detail once it is closer to release.",
+        ar: "قيد التطوير حالياً — التفاصيل عند اقتراب موعد الإطلاق.",
+      },
+      tags:  ["React Native", "TypeScript"],
+      image: "assets/projects/brieflix.png",
+    },
+    {
+      title: "OFQ",
+      subtitle: { en: "In development", ar: "قيد التطوير" },
+      lead: {
+        en: "Currently in development — more detail once it is closer to release.",
+        ar: "قيد التطوير حالياً — التفاصيل عند اقتراب موعد الإطلاق.",
+      },
+      tags:  ["React Native", "TypeScript"],
+      image: "assets/projects/ofq.png",
     },
   ],
 
@@ -467,7 +494,6 @@ window.CONTENT = {
       type:  "pdf", group: "education", featured: true,
     },
 
-    /* --- re-supply these three files, then uncomment ---
     {
       title: { en: "International Computer Driving Licence (ICDL)", ar: "الرخصة الدولية لقيادة الحاسب الآلي (ICDL)" },
       year:  "2024",
@@ -488,7 +514,6 @@ window.CONTENT = {
       file:  "assets/certificates/medium-of-instruction-english.pdf",
       type:  "pdf", group: "education",
     },
-    --- */
   ],
 
   /* ---------- 10. SEO ---------- */
