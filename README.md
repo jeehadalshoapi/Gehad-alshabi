@@ -1,162 +1,184 @@
-# jeemdev — portfolio & CV site
+<div align="center">
 
-Interactive single-page developer portfolio. Plain HTML, CSS and JavaScript — no build step,
-no dependencies, no npm install. Open it, edit one file, upload it.
+<img src="assets/img/og.png" alt="Gehad Fatehi Alshabi — Mechatronics Engineer" width="640">
+
+# Personal portfolio &amp; CV
+
+**[gehadalshabi.jeemdev.net](https://gehadalshabi.jeemdev.net)**
+
+A bilingual (English / Arabic) portfolio site built with nothing but HTML, CSS and JavaScript.
+No framework, no build step, no `node_modules`, no `package.json`.
+
+</div>
 
 ---
 
-## 1. The only file you edit
+## Why it is built this way
 
-**`data/content.js`** — every word on the site comes from this one object:
-name, roles, tagline, stats, about, skills, experience, education, projects, documents, SEO.
+A portfolio is a developer's smallest complete product, so the constraint I set was that it
+had to justify itself: if the site claims I can build things, the site itself should be the
+first piece of evidence.
 
-Change a value, save, refresh the browser. That's the whole workflow.
+That ruled out a template, and it ruled out reaching for a framework to render what is, in
+the end, one page of text. What is left is a small amount of plain code doing a few things
+properly.
 
-### Bilingual (English + Arabic)
+| | |
+|---|---|
+| **Runtime dependencies** | none — one stylesheet from Google Fonts, nothing else |
+| **Build step** | none; `index.html` opens straight from disk |
+| **Source** | ~2,300 lines across four files |
+| **First load** | ~225 KB including the photo |
+| **Hosting** | GitHub Pages, static, free |
 
-Any piece of text can be written in two forms:
+---
+
+## What it does
+
+- **English and Arabic**, switched instantly with no page reload. The whole layout mirrors to
+  right-to-left, the typeface changes, and the timeline, form labels and scroll indicator all
+  flip with it.
+- **Follows the device's light/dark setting**, with a manual override that is remembered. The
+  theme is applied before first paint, so there is no flash of the wrong palette.
+- **Documents are first-class.** Certificates, diplomas and the CV are attached to the thing
+  they are evidence for — the ICDL certificate sits on the ICDL qualification, the graduation
+  report sits on both the degree and the project it came from. They preview in-page rather
+  than downloading.
+- **Language-matched documents.** Where a file exists in both languages, a reader in English
+  is offered the English one and a reader in Arabic the Arabic one.
+- **Motion that stays out of the way** — a mouse-reactive particle field, scroll reveals,
+  magnetic buttons, 3D card tilt. All of it disabled under `prefers-reduced-motion`.
+- **Prints cleanly.** `Ctrl+P` produces a readable paper CV, not a screenshot of a dark theme.
+
+---
+
+## How it works
+
+### One file holds the content
+
+`index.html` is a shell of empty containers. Every word on the page comes from
+[`data/content.js`](data/content.js) — a single object covering identity, skills, experience,
+education, projects and documents. `assets/js/main.js` renders it into the DOM.
+
+Editing the site means editing one object. Nothing else has to be touched to add a job, a
+project or a certificate.
+
+### Bilingual by data, not by duplication
+
+There is no second copy of the site and no translation file to keep in sync. Any string is
+either a plain value or a pair:
 
 ```js
-title: "SolidWorks"                              // same in both languages
-title: { en: "Experience", ar: "الخبرات" }        // one per language
+title: "SolidWorks"                        // identical in both languages
+title: { en: "Experience", ar: "الخبرات" }  // one per language
 ```
 
-If you add a new field and only write `en`, the English text is shown in both
-languages — nothing breaks, so you can translate gradually.
+A `t()` helper resolves whichever applies, falling back to English when a translation is
+missing. Half-translated content renders correctly rather than breaking, so a new field can
+be added in English today and translated later.
 
-The visitor's language is chosen in this order: their saved choice →
-`?lang=ar` in the URL → their browser language → English. The toggle in the
-navbar switches instantly with no page reload, flips the whole layout to
-right-to-left, swaps the font to Cairo, and remembers the choice.
+Right-to-left is handled by flipping `dir` on the document and letting a block of
+`:root[dir="rtl"]` rules mirror the handful of things that do not mirror automatically — the
+timeline rail, the floating form labels, the gradient on section rules.
 
-UI chrome (buttons, form labels, nav) lives in the `UI` dictionary near the top
-of `assets/js/main.js`.
+### Documents attach to what they evidence
 
-**All prose in `content.js` is taken verbatim from the two CV PDFs** — the
-professional summary, every experience bullet and every project bullet. Keep it
-that way when you edit: the site and the CV should never tell different stories.
-
-### Light & dark
-
-The circle button in the navbar cycles **auto → light → dark**. *Auto* follows
-the visitor's device setting and is the default. The choice is remembered, and a
-small inline script in `<head>` applies it before first paint so there is no
-flash of the wrong palette. Light colours live at the bottom of
-`assets/css/style.css`; the canvas particles repaint themselves to match.
-
-## 2. Adding your CV and documents
-
-1. Drop the file into **`assets/docs/`** (e.g. `assets/docs/CV.pdf`).
-2. Add an entry to the `documents` array in `data/content.js`:
+Any education entry, job or project can carry a `files` array:
 
 ```js
-{
-  title: "Curriculum Vitae",
-  desc:  "Full CV — experience, skills and education.",
-  file:  "assets/docs/CV.pdf",
-  type:  "pdf",        // "pdf" gets an in-page preview; anything else just downloads
-  icon:  "file-text",   // file-text | award | id | folder | globe
-  primaryFor: "en",     // highlight this card + wire the navbar CV button when the site is in English
-                        // use  primary: true  to always highlight, regardless of language
-  // lang: "ar",        // optional: show this card ONLY in Arabic
-}
+files: [
+  { label: { en: "Certificate", ar: "الشهادة" },
+    file: "assets/certificates/hse-engineering.pdf", type: "pdf" },
+]
 ```
 
-PDFs open in a full-screen in-page viewer with Download / New-tab buttons.
-Any document listed here whose file is missing on the server is automatically flagged
-on the card, so a broken CV link can't go unnoticed.
+One `fileChips()` helper renders these wherever they appear, so language filtering and the
+PDF-versus-image choice behave identically across all three sections. A `lang` key on a file
+restricts it to one language, which is how the two Project Management certificates resolve to
+one chip.
 
-## 3. Photo & images
+Every referenced file is checked with a `HEAD` request on load; anything missing is flagged on
+its own card rather than failing silently when somebody clicks it.
 
-- Profile photo → `assets/img/avatar.jpg` (square works best; set `identity.avatar`)
-- Project screenshots → `assets/img/` then set `image:` on that project
-- Social share image → `assets/img/og.png` (1200×630)
+### Private documents never enter the repository
 
-All optional — the site falls back to styled placeholders if a file is absent.
+This repository is public, and a portfolio attracts exactly the kind of document that should
+not be. Identity documents, anything carrying a date of birth or a national ID number, and
+reference letters containing a referee's personal phone number all live under a directory that
+`.gitignore` excludes:
 
-## 4. Contact form
+```
+assets/certificates/_private/
+```
 
-Messages are delivered by **Formspree** (`contact.formEndpoint` in `data/content.js`),
-free tier: 50 submissions/month. Each notification gets a `jeemdev.net — <subject>`
-subject line, and Reply goes straight back to the sender.
+They stay on disk, usable when an employer asks for them directly, and have never been
+committed. The published site is checked against this: those paths return 404.
 
-If that endpoint is ever emptied or Formspree fails, the form degrades gracefully:
-it attempts the visitor's mail client and then shows a panel offering a pre-filled
-Gmail compose link, a WhatsApp link built from `contact.phone`, a copy-to-clipboard
-button and the plain address — so a visitor is never left with a dead button.
+---
 
-## 5. Running it locally
+## Running it locally
 
-Just double-click `index.html` — it works from the file system.
-For the document "file not found" check and PDF previews to behave exactly like production,
-serve it over HTTP instead:
+No install step.
+
+```bash
+git clone https://github.com/jeehadalshoapi/Gehad-alshabi.git
+cd Gehad-alshabi
+```
+
+Open `index.html` directly, or serve it over HTTP so the missing-file checks and PDF previews
+behave exactly as they do in production:
 
 ```bash
 python -m http.server 8000
-# then open http://localhost:8000
+# http://localhost:8000
 ```
 
-## 6. Deploying to gehadalshabi.jeemdev.net
+---
 
-### Netlify (easiest)
-1. <https://app.netlify.com/drop> → drag this whole folder in. Live instantly.
-2. Site settings → Domain management → Add custom domain → `gehadalshabi.jeemdev.net`.
-3. Point your domain's DNS at Netlify (they show the exact records).
-   `netlify.toml` here already sets caching and security headers.
+## Deploying
 
-### GitHub Pages
-```bash
-git init && git add . && git commit -m "portfolio"
-git branch -M main
-git remote add origin https://github.com/<you>/<repo>.git
-git push -u origin main
-```
-Repo → Settings → Pages → Deploy from branch `main` / root.
-The included `CNAME` file already contains `gehadalshabi.jeemdev.net`, so Pages picks the domain up
-automatically — then add these DNS records at your registrar:
+The site is static, so any host works. It currently runs on **GitHub Pages**: push to `main`
+and it is live in about a minute. `CNAME` holds the custom domain; `netlify.toml` is kept for
+the Netlify path, which sets caching and security headers that Pages ignores.
 
-| Type  | Name | Value |
-|-------|------|-------|
-| A     | @    | 185.199.108.153 |
-| A     | @    | 185.199.109.153 |
-| A     | @    | 185.199.110.153 |
-| A     | @    | 185.199.111.153 |
-| CNAME | www  | `<you>.github.io` |
+---
 
-### Vercel / cPanel / any host
-Upload the folder as-is. It's static — `index.html` at the root is all that's needed.
-
-## 7. What's in the motion layer
-
-| Effect | Where |
-|---|---|
-| Boot loader with progress | top of page load |
-| Particle constellation reacting to the mouse | `<canvas>` background |
-| Animated grid + film grain | CSS layers |
-| Typing / deleting job titles | hero |
-| Counters that animate on scroll | hero stats |
-| Instant EN ⇄ AR switch with RTL flip | navbar |
-| Auto / light / dark theme, animated flip | navbar |
-| Scroll-reveal for every block | all sections |
-| Expandable long project descriptions | project cards |
-| Custom neon cursor with hover state | desktop only |
-| Magnetic buttons | CTAs |
-| 3D tilt on project & document cards | hover |
-| Scroll progress bar + active nav highlight | navbar |
-| In-page PDF viewer modal | documents |
-| Easter egg: type `jeem` anywhere | whole page |
-
-All of it respects `prefers-reduced-motion`, and the whole page has a clean print
-stylesheet — so pressing Ctrl+P produces a readable paper CV.
-
-## 8. Structure
+## Layout
 
 ```
-index.html            markup shell (mostly empty containers)
-data/content.js       ← your content lives here
-assets/css/style.css  design system + all animation
-assets/js/main.js     renders content.js into the DOM + motion layer
-assets/docs/          CV and any certificates
-assets/img/           photo, project shots, favicon, og image
-CNAME netlify.toml robots.txt sitemap.xml   deployment
+index.html              markup shell — containers, no content
+data/content.js         ← everything the page says
+assets/
+  css/style.css         design tokens, layout, motion, light & dark, RTL
+  js/main.js            renders content.js, plus the motion layer
+  docs/                 CV, English and Arabic
+  certificates/         published certificates
+    _private/           ignored — identity documents, referee letters
+  projects/             project thumbnails
+    _src/               ignored — original logo artwork
+  img/                  photo, favicon, social card
+CNAME robots.txt sitemap.xml netlify.toml
 ```
+
+---
+
+## Reusing this
+
+The **code** — `index.html`, `assets/css/style.css`, `assets/js/main.js` and the shape of
+`data/content.js` — is free to use as a starting point for your own site.
+
+The **content** is not: the CV, certificates, photograph, project artwork and written text in
+`data/content.js` are personal documents, and some of them are issued credentials. Replace all
+of it with your own.
+
+If you build on this, a link back is welcome but not required.
+
+---
+
+<div align="center">
+
+**Gehad Fatehi Alshabi** — Mechatronics Engineer · Riyadh, Saudi Arabia
+
+[Website](https://gehadalshabi.jeemdev.net) · [LinkedIn](https://linkedin.com/in/gehad-al-shabi) · [Google Play](https://play.google.com/store/apps/details?id=com.golazo.wc2026)
+
+</div>
